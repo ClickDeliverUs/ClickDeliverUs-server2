@@ -160,14 +160,4 @@ export class AuthService {
       this.logger.log(`Invalid access Token payload: ${id}`);
     }
   }
-
-  async signIn(signInDto: SignInDto): Promise<SignInDto> {
-    const { email, password, tel, address } = signInDto;
-    console.log(email);
-    console.log(password);
-    console.log(tel);
-    console.log(address);
-    const currentUserDto: SignInDto = new SignInDto(email, password, tel, address);
-    return currentUserDto;
-  }
 }
