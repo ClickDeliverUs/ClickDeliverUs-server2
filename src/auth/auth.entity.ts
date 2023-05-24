@@ -12,20 +12,26 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 10 })
   name: string;
 
+  @Column({ type: 'varchar', length: 10 })
+  nickName: string;
+
   @Column({ type: 'varchar', length: 14, unique: true })
   id: string;
 
   @Column({ type: 'varchar', length: 14 })
   password: string;
 
-  @Column({ type: 'int', nullable: false })
-  age: number;
+  @Column({ type: 'date', nullable: false })
+  birth: Date;
 
   @Column({ type: 'boolean', nullable: false })
   gender: boolean;
 
   @Column({ length: 50, type: 'varchar', nullable: false })
   address: string;
+
+  //@Column({ length: 14, type: 'varchar', nullable: false })
+  //tel: string;
 
   @Column({ type: 'date', nullable: false })
   createdDT: Date;
