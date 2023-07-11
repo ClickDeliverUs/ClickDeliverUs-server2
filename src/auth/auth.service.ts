@@ -62,7 +62,7 @@ export class AuthService {
         console.log('success');
         return true;
       } else {
-        console.log('password failed');
+        console.log('비번틀림');
         throw new BadRequestException('Password does not match');
       }
     } else {
