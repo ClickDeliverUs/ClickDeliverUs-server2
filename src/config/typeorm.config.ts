@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { UserEntity } from 'src/auth/auth.entity';
+import { UserEntity } from 'src/auth/entity/auth.entity';
 import SnakeNamingStrategy from 'typeorm-naming-strategy';
 
 export const TypeOrmConfig: TypeOrmModuleOptions = {

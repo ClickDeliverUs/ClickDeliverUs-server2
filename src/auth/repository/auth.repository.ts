@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { UserEntity } from '../auth.entity';
+import { UserEntity } from '../entity/auth.entity';
 import { DataSource, Repository } from 'typeorm';
 import { SignUpResDto } from '../dto/signup-res.dto';
 import { SignInResDto } from '../dto/signin-res.dto';
@@ -15,11 +15,13 @@ export class MemberCRUD extends Repository<UserEntity> {
   }
 
   async saveUser(signUpReqDto: SignUpReqDto): Promise<boolean> {
-    const { uuid, name, nickName, id, password,tel, birth, gender, address, isAdult } = signUpReqDto;
+    const { uuid, name, nickName, id, password, tel, birth, gender, address, isAdult } =
+      signUpReqDto;
 
     const UuidToBin: Buffer = uuidToBin(uuid);
     try {
-      const hashedPassword: string = await bcrypt.hash(password, 10); // 10은 해시 알고리즘의 솔트(salt) 값입니다.
+      const salt: string = await bcrypt.genSalt();
+      const hashedPassword: string = await bcrypt.hash(password, salt); // 10은 해시 알고리즘의 솔트(salt) 값입니다.
 
       const user: UserEntity = this.create({
         name,
@@ -42,7 +44,7 @@ export class MemberCRUD extends Repository<UserEntity> {
       if (err.code == 'ER_DUP_ENTRY') {
         return null;
       } else {
-        console.log(err)
+        console.log(err);
         throw new InternalServerErrorException('DB error ocurred');
       }
     }
@@ -65,7 +67,7 @@ export class MemberCRUD extends Repository<UserEntity> {
         user.address,
         user.name,
         user.nickName,
-        user.tel
+        user.tel,
       );
 
       return signInResDto;

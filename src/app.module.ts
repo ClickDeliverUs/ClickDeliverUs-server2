@@ -10,10 +10,9 @@ import { ProductsService } from './product/products.service';
 
 @Module({
   imports: [AuthModule, TypeOrmModule.forRoot(TypeOrmConfig)],
-  controllers: [AppController,ProductsController],
-  providers: [AppService,ProductsService],
+  controllers: [AppController, ProductsController],
+  providers: [AppService, ProductsService],
 })
 export class AppModule {
   constructor(private datasource: DataSource) {}
 }
-

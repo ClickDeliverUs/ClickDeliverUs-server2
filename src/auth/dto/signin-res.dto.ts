@@ -11,6 +11,8 @@ export class SignInResDto {
   gender?: boolean;
   createdDT?: Date;
   isAdult?: boolean;
+  accessToken: string;
+  refreshToken: string;
 
   constructor(
     uuid: string,
@@ -24,8 +26,7 @@ export class SignInResDto {
     age?: number,
     gender?: boolean,
     createdDT?: Date,
-    isAdult?: boolean
-    
+    isAdult?: boolean,
   ) {
     this.uid = uid;
     this.uuid = uuid;
