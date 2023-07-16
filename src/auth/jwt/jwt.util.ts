@@ -15,8 +15,8 @@ export class JwtUtil {
 
     return accessToken;
   }
-
-  generaateRefershToken(payload: RefreshPayload): string {
+  // required parameter인 secret key, exp date가 비어있어서 생기는 문제
+  generateRefershToken(payload: RefreshPayload): string {
     const refreshToken = this.jwtService.sign(payload, {
       secret: process.env.JWT_REFRESH_SECRET,
       expiresIn: process.env.JWT_REFRESH_EXPIRE,

@@ -20,9 +20,12 @@ import { RegenerateTokenDto } from './dto/regenerate-token.dto';
 @Injectable()
 export class AuthService {
   private logger: Logger = new Logger(AuthService.name);
-  JwtUtil: any;
-  tokenRepository: any;
-  constructor(private memberCRUD: MemberCRUD) {}
+
+  constructor(
+    private memberCRUD: MemberCRUD,
+    private tokenRepository: TokenRepository,
+    private jwtUtil: JwtUtil,
+  ) {}
 
   async isDuplicateEmail(id: string): Promise<boolean> {
     const user: SignInResDto = await this.memberCRUD.findUser(id);
@@ -76,7 +79,8 @@ export class AuthService {
 
     if (registeredUser) {
       const decodedPassword: boolean = await bcrypt.compare(password, registeredUser.password);
-      console.log(registeredUser);
+      console.log(decodedPassword);
+
       if (decodedPassword) {
         const accessPayload: AccessPayload = {
           uuid: registeredUser.uuid,
@@ -89,9 +93,10 @@ export class AuthService {
           id: registeredUser.id,
         };
 
-        const accessToken: string = this.JwtUtil.generateAccessToken(accessPayload);
-        const refreshToken: string = this.JwtUtil.generateRefreshToken(refreshPayload);
+        const accessToken: string = this.jwtUtil.generateAccessToken(accessPayload);
+        const refreshToken: string = this.jwtUtil.generateRefershToken(refreshPayload);
 
+        // 여기도 주입이 안돼있다
         await this.tokenRepository.saveRefreshToken(
           registeredUser.uuid,
           registeredUser.id,
@@ -117,7 +122,7 @@ export class AuthService {
   async regenerateToken(regenerateTokenDto: RegenerateTokenDto): Promise<RegenerateTokenDto> {
     const { uuid, id, accessToken, refreshToken } = regenerateTokenDto;
 
-    const decodedAccessToken: AccessPayload = this.JwtUtil.decodeToken(accessToken);
+    const decodedAccessToken: AccessPayload = this.jwtUtil.decodeToken(accessToken);
 
     if (uuid === decodedAccessToken.uuid) {
       const storedRefreshToken: UserToken = await this.tokenRepository.findRefreshToken(
@@ -138,8 +143,8 @@ export class AuthService {
 
       const refreshPayload: RefreshPayload = { uuid: decodedAccessToken.uuid, id };
 
-      const newAccessToken: string = this.JwtUtil.generateAccessToken(accessPayload);
-      const newRefreshToken: string = this.JwtUtil.generateRefreshToken(refreshToken);
+      const newAccessToken: string = this.jwtUtil.generateAccessToken(accessPayload);
+      const newRefreshToken: string = this.jwtUtil.generateRefershToken(refreshPayload);
 
       const newGeneratedToken: RegenerateTokenDto = new RegenerateTokenDto(
         uuid,
