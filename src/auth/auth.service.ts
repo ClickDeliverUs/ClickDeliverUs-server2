@@ -65,7 +65,7 @@ export class AuthService {
     return didUserSave;
   }
 
-  async signIn(signInReqDto: SignInReqDto): Promise<boolean> {
+  async signIn(signInReqDto: SignInReqDto): Promise<SignInResDto> {
     const { id, password } = signInReqDto;
 
     //const currentUserDto: SignInReqDto = new SignInReqDto(id, password);
@@ -107,7 +107,7 @@ export class AuthService {
         registeredUser.refreshToken = refreshToken;
         delete registeredUser.password;
         this.logger.log(`User verified: ${id}`);
-        return true;
+        return registeredUser;
       } else if (!decodedPassword) {
         console.log(decodedPassword);
         this.logger.log(`Wrong password: ${id}`);
