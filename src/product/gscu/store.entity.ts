@@ -1,12 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Store {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   @Column()
-  s_id: string;
+  s_id: number;
 
   @Column()
   cvsname: string;
@@ -17,8 +14,8 @@ export class Store {
   @Column()
   mincost: number;
 
-  @Column()
+  @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
-  
-}
+  }
+
