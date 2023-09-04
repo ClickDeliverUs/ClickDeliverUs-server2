@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmConfig } from './config/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ChatGateway } from './chat/chat.gateway';
+import { ChatService } from './chat/chat.service';
 import { UserEntity } from './auth/auth.entity';
 import { ProductsModule } from './product/products.module';
 import { Store } from './product/gscu/store.entity';
@@ -48,7 +50,7 @@ import { Goods } from './product/gscu/goods';
     StoreModule,
   ],
   controllers: [ AppController],
-  providers: [AppService],
+  providers: [AppServiceChatGateway, ChatService],
 })
 export class AppModule {}
 
