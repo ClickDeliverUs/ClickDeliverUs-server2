@@ -3,13 +3,13 @@ import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
 @Entity()
 export class Medic {
   @PrimaryGeneratedColumn()
-  id: number;
+  u_id: number;
 
   @Column()
-  s_id: string;
+  menu_id: number;
 
   @Column()
-  menu_id: string;
+  s_id: number;
 
   @Column()
   medic_name: string;

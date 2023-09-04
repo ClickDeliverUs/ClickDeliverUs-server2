@@ -2,33 +2,39 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
-import { Store } from './gscu/store.entity';
-//import { Alcohol } from './gscu/Alcohol.entity';
-import { Beverage } from './gscu/beverage.entity';
-import { Candy } from './gscu/candy.entity';
-import { Frozen } from './gscu/frozen.entity';
-import { Ice } from './gscu/ice.entity';
-import { Instant } from './gscu/instant.entity';
-//import { Lifeuse } from './gscu/life_use.entity';
-import { Medic } from './gscu/medic.entity';
-//import { Milk } from './gscu/milk.entity';
-import { Noodle } from './gscu/noodle.entity';
-//import { Onedate } from './gscu/one_date.entity';
-import { Snack } from './gscu/snack.entity';
-//import { Tobacco } from './gscu/tobacco.entity';
+import { Store } from './gscu/Store.entity';
+import { Alcohol } from './gscu/Alcohol.entity';
+import { Beverage } from './gscu/Beverage.entity';
+import { Candy } from './gscu/Candy.entity';
+import { Frozen } from './gscu/Frozen.entity';
+import { Ice } from './gscu/Ice.entity';
+import { Instant } from './gscu/Instant.entity';
+import { Lifeuse } from './gscu/Lifeuse.entity';
+import { Medic } from './gscu/Medic.entity';
+import { Milk } from './gscu/Milk.entity';
+import { Noodle } from './gscu/Noodle.entity';
+import { Onedate } from './gscu/Onedate.entity';
+import { Snack } from './gscu/Snack.entity';
+import { Tobacco } from './gscu/Tobacco.entity';
+import { Goods } from './gscu/goods';
 
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Store, Beverage,Frozen,
-       Candy,  Ice, 
-       Instant,
-       /* Lifeuse*/
+    imports: [TypeOrmModule.forFeature([Store, 
+      Alcohol,
+      Beverage,
+      Frozen,
+      Candy, 
+      Goods, 
+      Ice, 
+      Instant,
+      Lifeuse,
       Medic, 
-      //Milk, 
+      Milk, 
       Noodle, 
-      //Onedate,
+      Onedate,
       Snack, 
-     //Tobacco
+      Tobacco
 ])],
     controllers: [ProductsController],
     providers: [ProductsService],

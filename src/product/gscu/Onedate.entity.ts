@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
 
 @Entity()
-export class Instant {
+export class Onedate {
   @PrimaryGeneratedColumn()
   u_id: number;
-
+  
   @Column()
   menu_id: number;
 
@@ -12,10 +12,10 @@ export class Instant {
   s_id: number;
 
   @Column()
-  instant_name: string;
+  onedate_name: string;
 
   @Column()
-  instant_count: number;
+  onedate_count: number;
 
   
 }

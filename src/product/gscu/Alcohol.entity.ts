@@ -1,18 +1,23 @@
-// import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn} from 'typeorm';
 
-// @Entity()
-// export class Alcohol {
-//   @Column()
-//   s_id: number;
+@Entity()
+export class Alcohol {
+  @PrimaryGeneratedColumn()
+  u_id: number;
+  
+  @Column()
+  menu_id: number;
 
-//   @Column()
-//   menu_id: string;
+  @Column()
+  s_id: number;
 
-//   @Column()
-//   Alcohol_name: string;
+  @Column()
+  alcohol_name: string;
 
-//   @Column()
-//   Alcohol_count: number;
+  @Column()
+  alcohol_count: number;
 
-// }
+
+
+}
 

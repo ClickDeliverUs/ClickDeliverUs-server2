@@ -1,28 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like } from 'typeorm';
-import { Store } from './gscu/store.entity';
-//import { Alcohol } from './gscu/Alcohol.entity';
-import { Beverage } from './gscu/beverage.entity';
-import { Candy  } from './gscu/candy.entity';
-import { Frozen } from './gscu/frozen.entity';
-import { Ice } from './gscu/ice.entity';
-import { Instant } from './gscu/instant.entity';
-//import { Lifeuse } from './gscu/life_use.entity';
-import { Medic } from './gscu/medic.entity';
-//import { Milk } from './gscu/milk.entity';
-import { Noodle } from './gscu/noodle.entity';
-//import { Onedate } from './gscu/one_date.entity';
-import { Snack } from './gscu/snack.entity';
-//import { Tobacco } from './gscu/tobacco.entity';
+import { Alcohol } from './gscu/Alcohol.entity';
+import { Beverage } from './gscu/Beverage.entity';
+import { Candy  } from './gscu/Candy.entity';
+import { Frozen } from './gscu/Frozen.entity';
+import { Ice } from './gscu/Ice.entity';
+import { Instant } from './gscu/Instant.entity';
+import { Lifeuse } from './gscu/Lifeuse.entity';
+import { Medic } from './gscu/Medic.entity';
+import { Milk } from './gscu/Milk.entity';
+import { Noodle } from './gscu/Noodle.entity';
+import { Onedate } from './gscu/Onedate.entity';
+import { Snack } from './gscu/Snack.entity';
+import { Tobacco } from './gscu/Tobacco.entity';
 
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectRepository(Store)
-    private store_ProductRepository: Repository<Store>,
-    //@InjectRepository(Alcohol)
-    //private Alcohol_ProductRepository: Repository<Alcohol>,
+    @InjectRepository(Alcohol)
+    private Alcohol_ProductRepository: Repository<Alcohol>,
     @InjectRepository(Beverage)
     private beverage_Repository: Repository<Beverage>,
     @InjectRepository(Candy)
@@ -33,48 +30,43 @@ export class ProductsService {
     private ice_Repository: Repository<Ice>,
     @InjectRepository(Instant)
     private instant_Repository: Repository<Instant>,
-    // @InjectRepository(Lifeuse)
-    // private lifeuse_Repository: Repository<Lifeuse>,
+    @InjectRepository(Lifeuse)
+    private lifeuse_Repository: Repository<Lifeuse>,
     @InjectRepository(Medic)
     private medic_Repository: Repository<Medic>,
-    // @InjectRepository(Milk)
-    // private milk_Repository: Repository<Milk>,
+    @InjectRepository(Milk)
+    private milk_Repository: Repository<Milk>,
     @InjectRepository(Noodle)
     private noodle_Repository: Repository<Noodle>,
-    // @InjectRepository(Onedate)
-    // private onedate_Repository: Repository<Onedate>,
+    @InjectRepository(Onedate)
+    private onedate_Repository: Repository<Onedate>,
     @InjectRepository(Snack)
     private snack_Repository: Repository<Snack>,
-    // @InjectRepository(Tobacco)
-    // private tobacco_Repository: Repository<Tobacco>,
+    @InjectRepository(Tobacco)
+    private tobacco_Repository: Repository<Tobacco>,
 
   ) {}
 
   async findBySidAcrossTables(s_id: string): Promise<{
-    stores: Store[];
-    //alcohols: Alcohol[];
+    alcohols: Alcohol[];
     beverages: Beverage[];
     candys: Candy[];
     frozens: Frozen[];
     ices: Ice[];
     instants: Instant[];
-    // lifeuses: Lifeuse[];
+    lifeuses: Lifeuse[];
     medics: Medic[];
-    // mliks: Milk[];
+    mliks: Milk[];
     noodles: Noodle[];
-    // onedates: Onedate[];
+    onedates: Onedate[];
     snacks: Snack[];
-    // tobaccos: Tobacco[];
+    tobaccos: Tobacco[];
   }> {
-    const stores = await this.store_ProductRepository
-      .createQueryBuilder('store')
-      .where('store.s_id LIKE :s_id', { s_id: `%${s_id}%` })
-      .getMany();
 
-   // const alcohols = await this.Alcohol_ProductRepository
-    //  .createQueryBuilder('Alcohol')
-    //  .where('Alcohol.s_id LIKE :s_id', { s_id: `%${s_id}%` })
-    //  .getMany();
+   const alcohols = await this.Alcohol_ProductRepository
+     .createQueryBuilder('alcohol')
+     .where('alcohol.s_id LIKE :s_id', { s_id: `%${s_id}%` })
+     .getMany();
 
     const beverages = await this.beverage_Repository
       .createQueryBuilder('beverage')
@@ -97,16 +89,17 @@ export class ProductsService {
       .where('ice.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
 
+
     const instants = await this.instant_Repository
       .createQueryBuilder('instant')
       .where('instant.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
   
 
-    // const lifeuses = await this.lifeuse_Repository
-    //   .createQueryBuilder('life_use')
-    //   .where('life_use.s_id LIKE :s_id', { s_id: `%${s_id}%` })
-    //   .getMany();
+    const lifeuses = await this.lifeuse_Repository
+      .createQueryBuilder('lifeuse')
+      .where('lifeuse.s_id LIKE :s_id', { s_id: `%${s_id}%` })
+      .getMany();
 
     const medics = await this.medic_Repository
       .createQueryBuilder('medic')
@@ -114,20 +107,20 @@ export class ProductsService {
       .getMany();
 
 
-    // const mliks = await this.milk_Repository
-    //   .createQueryBuilder('milk')
-    //   .where('milk.s_id LIKE :s_id', { s_id: `%${s_id}%` })
-    //   .getMany();
+    const mliks = await this.milk_Repository
+      .createQueryBuilder('milk')
+      .where('milk.s_id LIKE :s_id', { s_id: `%${s_id}%` })
+      .getMany();
 
     const noodles = await this.noodle_Repository
       .createQueryBuilder('noodle')
       .where('noodle.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
 
-    // const onedates = await this.onedate_Repository
-    //   .createQueryBuilder('one_date')
-    //   .where('one_date.s_id LIKE :s_id', { s_id: `%${s_id}%` })
-    //   .getMany();
+    const onedates = await this.onedate_Repository
+      .createQueryBuilder('onedate')
+      .where('onedate.s_id LIKE :s_id', { s_id: `%${s_id}%` })
+      .getMany();
 
     const snacks = await this.snack_Repository
       .createQueryBuilder('snack')
@@ -135,27 +128,26 @@ export class ProductsService {
       .getMany();
   
 
-    // const tobaccos = await this.tobacco_Repository
-    //   .createQueryBuilder('tobacco')
-    //   .where('tobacco.s_id LIKE :s_id', { s_id: `%${s_id}%` })
-    //   .getMany();
+    const tobaccos = await this.tobacco_Repository
+      .createQueryBuilder('tobacco')
+      .where('tobacco.s_id LIKE :s_id', { s_id: `%${s_id}%` })
+      .getMany();
 
   
     const result = {
-      stores,
-   // alcohols,
+      alcohols,
       beverages,
       candys,
       frozens,
       ices,
       instants,
-      // lifeuses,
+      lifeuses,
       medics,
-      // mliks,
+      mliks,
       noodles,
-      // onedates,
+      onedates,
       snacks,
-      // tobaccos
+      tobaccos
     };
 
     return result;

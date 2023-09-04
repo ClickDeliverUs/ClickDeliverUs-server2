@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Store {
-  @Column()
+
+  @PrimaryGeneratedColumn()
   s_id: number;
 
   @Column()
@@ -12,10 +13,8 @@ export class Store {
   c_address: string;
 
   @Column()
-  mincost: number;
+  c_open: Date;
 
-  @PrimaryGeneratedColumn('uuid')
-  uuid: string;
-
+  @Column()
+  c_close: Date;
   }
-

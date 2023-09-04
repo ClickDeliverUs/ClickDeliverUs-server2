@@ -1,21 +1,21 @@
-// import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
 
-// @Entity()
-// export class Milk {
-//   @PrimaryGeneratedColumn()
-//   id: number;
+@Entity()
+export class Milk {
+  @PrimaryGeneratedColumn()
+  u_id: number;
+  
+  @Column()
+  menu_id: number;
 
-//   @Column()
-//   s_id: string;
+  @Column()
+  s_id: number;
 
-//   @Column()
-//   menu_id: string;
+  @Column()
+  mlik_name: string;
 
-//   @Column()
-//   mlik_name: string;
-
-//   @Column()
-//   milk_count: number;
+  @Column()
+  milk_count: number;
 
   
-// }
+}

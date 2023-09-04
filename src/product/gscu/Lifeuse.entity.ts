@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
 
 @Entity()
-export class Instant {
+export class Lifeuse {
   @PrimaryGeneratedColumn()
   u_id: number;
 
@@ -12,10 +12,10 @@ export class Instant {
   s_id: number;
 
   @Column()
-  instant_name: string;
+  lifeuse_name: string;
 
   @Column()
-  instant_count: number;
+  lifeuse_count: number;
 
   
 }

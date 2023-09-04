@@ -10,6 +10,7 @@ import { Store } from 'src/product/gscu/store.entity';
     imports: [TypeOrmModule.forFeature([Store])],
   controllers: [StoreController],
   providers: [StoreService],
-  exports: [StoreService], // StoreService를 exports에 추가
+  exports: [StoreService], 
 })
 export class StoreModule {}
+
