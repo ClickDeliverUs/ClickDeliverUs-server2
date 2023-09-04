@@ -1,13 +1,17 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Param } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { Product } from './gscu/product.model';
+
+
 
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService,
+    ) {}
 
-  @Get('/search')
-  searchProducts(@Query('keyword') keyword: string): Product[] {
-    return this.productsService.searchProducts(keyword);
+  @Get('search/:s_id')
+  async searchBySid(@Param('s_id') s_id: string) {
+    return this.productsService.findBySidAcrossTables(s_id);
   }
 }
+

@@ -1,0 +1,16 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Store } from '../product/gscu/Store.entity';
+
+@Injectable()
+export class StoreService {
+  constructor(
+    @InjectRepository(Store)
+    private readonly storeRepository: Repository<Store>,
+  ) {}
+
+  async findAll(): Promise<Store[]> {
+    return this.storeRepository.find();
+  }
+}
