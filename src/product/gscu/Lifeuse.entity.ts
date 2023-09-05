@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
+/* eslint-disable prettier/prettier */
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Lifeuse {
@@ -16,6 +17,4 @@ export class Lifeuse {
 
   @Column()
   lifeuse_count: number;
-
-  
 }

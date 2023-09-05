@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
+/* eslint-disable prettier/prettier */
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Frozen {
@@ -7,7 +8,7 @@ export class Frozen {
 
   @Column()
   menu_id: number;
-  
+
   @Column()
   s_id: number;
 
@@ -16,8 +17,4 @@ export class Frozen {
 
   @Column()
   frozen_count: number;
-
-
-  
 }
-

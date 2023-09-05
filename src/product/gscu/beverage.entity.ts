@@ -1,10 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
+/* eslint-disable prettier/prettier */
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Beverage {
   @PrimaryGeneratedColumn()
   u_id: number;
-  
+
   @Column()
   menu_id: number;
 
@@ -16,6 +17,4 @@ export class Beverage {
 
   @Column()
   beverage_count: number;
-
-  
 }

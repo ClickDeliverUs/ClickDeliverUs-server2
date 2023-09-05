@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsController } from './products.controller';
@@ -18,25 +19,27 @@ import { Snack } from './gscu/Snack.entity';
 import { Tobacco } from './gscu/Tobacco.entity';
 import { Goods } from './gscu/goods';
 
-
 @Module({
-    imports: [TypeOrmModule.forFeature([Store, 
+  imports: [
+    TypeOrmModule.forFeature([
+      Store,
       Alcohol,
       Beverage,
       Frozen,
-      Candy, 
-      Goods, 
-      Ice, 
+      Candy,
+      Goods,
+      Ice,
       Instant,
       Lifeuse,
-      Medic, 
-      Milk, 
-      Noodle, 
+      Medic,
+      Milk,
+      Noodle,
       Onedate,
-      Snack, 
-      Tobacco
-])],
-    controllers: [ProductsController],
-    providers: [ProductsService],
-  })
-  export class ProductsModule {}
+      Snack,
+      Tobacco,
+    ]),
+  ],
+  controllers: [ProductsController],
+  providers: [ProductsService],
+})
+export class ProductsModule {}

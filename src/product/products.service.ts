@@ -1,9 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like } from 'typeorm';
 import { Alcohol } from './gscu/Alcohol.entity';
 import { Beverage } from './gscu/Beverage.entity';
-import { Candy  } from './gscu/Candy.entity';
+import { Candy } from './gscu/Candy.entity';
 import { Frozen } from './gscu/Frozen.entity';
 import { Ice } from './gscu/Ice.entity';
 import { Instant } from './gscu/Instant.entity';
@@ -25,7 +26,7 @@ export class ProductsService {
     @InjectRepository(Candy)
     private candy_Repository: Repository<Candy>,
     @InjectRepository(Frozen)
-     private frozen_Repository: Repository<Frozen>,
+    private frozen_Repository: Repository<Frozen>,
     @InjectRepository(Ice)
     private ice_Repository: Repository<Ice>,
     @InjectRepository(Instant)
@@ -44,7 +45,6 @@ export class ProductsService {
     private snack_Repository: Repository<Snack>,
     @InjectRepository(Tobacco)
     private tobacco_Repository: Repository<Tobacco>,
-
   ) {}
 
   async findBySidAcrossTables(s_id: string): Promise<{
@@ -62,24 +62,21 @@ export class ProductsService {
     snacks: Snack[];
     tobaccos: Tobacco[];
   }> {
-
-   const alcohols = await this.Alcohol_ProductRepository
-     .createQueryBuilder('alcohol')
-     .where('alcohol.s_id LIKE :s_id', { s_id: `%${s_id}%` })
-     .getMany();
+    const alcohols = await this.Alcohol_ProductRepository.createQueryBuilder('alcohol')
+      .where('alcohol.s_id LIKE :s_id', { s_id: `%${s_id}%` })
+      .getMany();
 
     const beverages = await this.beverage_Repository
       .createQueryBuilder('beverage')
       .where('beverage.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
-  
 
     const candys = await this.candy_Repository
       .createQueryBuilder('candy')
       .where('candy.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
 
-      const frozens = await this.frozen_Repository
+    const frozens = await this.frozen_Repository
       .createQueryBuilder('frozen')
       .where('frozen.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
@@ -89,12 +86,10 @@ export class ProductsService {
       .where('ice.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
 
-
     const instants = await this.instant_Repository
       .createQueryBuilder('instant')
       .where('instant.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
-  
 
     const lifeuses = await this.lifeuse_Repository
       .createQueryBuilder('lifeuse')
@@ -105,7 +100,6 @@ export class ProductsService {
       .createQueryBuilder('medic')
       .where('medic.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
-
 
     const mliks = await this.milk_Repository
       .createQueryBuilder('milk')
@@ -126,14 +120,12 @@ export class ProductsService {
       .createQueryBuilder('snack')
       .where('snack.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
-  
 
     const tobaccos = await this.tobacco_Repository
       .createQueryBuilder('tobacco')
       .where('tobacco.s_id LIKE :s_id', { s_id: `%${s_id}%` })
       .getMany();
 
-  
     const result = {
       alcohols,
       beverages,
@@ -147,7 +139,7 @@ export class ProductsService {
       noodles,
       onedates,
       snacks,
-      tobaccos
+      tobaccos,
     };
 
     return result;

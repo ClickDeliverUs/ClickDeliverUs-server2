@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
+/* eslint-disable prettier/prettier */
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Candy {
@@ -16,7 +17,4 @@ export class Candy {
 
   @Column()
   candy_count: number;
-
-  
 }
-

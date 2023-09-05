@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // store.module.ts
 
 import { Module } from '@nestjs/common';
@@ -7,10 +8,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Store } from 'src/product/gscu/store.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Store])],
+  imports: [TypeOrmModule.forFeature([Store])],
   controllers: [StoreController],
   providers: [StoreService],
-  exports: [StoreService], 
+  exports: [StoreService],
 })
 export class StoreModule {}
-

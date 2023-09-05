@@ -1,7 +1,8 @@
+/* eslint-disable prettier/prettier */
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UserEntity } from '../auth/auth.entity';
 import SnakeNamingStrategy from 'typeorm-naming-strategy';
-import { Store } from '../product/gscu/store.entity'
+import { Store } from '../product/gscu/store.entity';
 import { Alcohol } from '../product/gscu/Alcohol.entity';
 import { Candy } from '../product/gscu/Candy.entity';
 import { Ice } from '../product/gscu/Ice.entity';
@@ -24,22 +25,23 @@ export const TypeOrmConfig: TypeOrmModuleOptions = {
   database: process.env.DB_DATABASE,
   synchronize: true,
   namingStrategy: new SnakeNamingStrategy(),
-  entities: [UserEntity, Store,
-                Alcohol,
-                Beverage,
-                Frozen,
-                Candy,
-                Ice,
-                Instant, 
-                Lifeuse, 
-                Medic, 
-                Milk, 
-                Noodle, 
-                Onedate, 
-                Snack, 
-                Tobacco
-                ],
+  entities: [
+    UserEntity,
+    Store,
+    Alcohol,
+    Beverage,
+    Frozen,
+    Candy,
+    Ice,
+    Instant,
+    Lifeuse,
+    Medic,
+    Milk,
+    Noodle,
+    Onedate,
+    Snack,
+    Tobacco,
+  ],
 };
 
 export default TypeOrmConfig;
-
