@@ -30,8 +30,8 @@ export class UserEntity extends BaseEntity {
   @Column({ length: 50, type: 'varchar', nullable: false })
   address: string;
 
-  //@Column({ length: 14, type: 'varchar', nullable: false })
-  //tel: string;
+  @Column({ length: 14, type: 'varchar', nullable: false })
+  tel: string;
 
   @Column({ type: 'date', nullable: false })
   createdDT: Date;
