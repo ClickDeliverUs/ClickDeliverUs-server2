@@ -2,7 +2,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UserEntity } from '../auth/auth.entity';
 import SnakeNamingStrategy from 'typeorm-naming-strategy';
-import { Store } from 'src/product/gscu/store.entity';
+import { Store } from 'src/product/gscu/Store.entity';
 import { Alcohol } from 'src/product/gscu/Alcohol.entity';
 import { Candy } from 'src/product/gscu/Candy.entity';
 import { Ice } from 'src/product/gscu/Ice.entity';

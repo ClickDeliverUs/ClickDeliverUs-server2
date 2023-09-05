@@ -8,7 +8,7 @@ import { ChatGateway } from './chat/chat.gateway';
 import { ChatService } from './chat/chat.service';
 import { UserEntity } from './auth/auth.entity';
 import { ProductsModule } from 'src/product/products.module';
-import { Store } from 'src/product/gscu/store.entity';
+import { Store } from 'src/product/gscu/Store.entity';
 import { Alcohol } from 'src/product/gscu/Alcohol.entity';
 import { Beverage } from 'src/product/gscu/Beverage.entity';
 import { Candy } from 'src/product/gscu/Candy.entity';
@@ -23,7 +23,7 @@ import { Noodle } from 'src/product/gscu/Noodle.entity';
 import { Onedate } from 'src/product/gscu/Onedate.entity';
 import { Snack } from 'src/product/gscu/Snack.entity';
 import { Tobacco } from 'src/product/gscu/Tobacco.entity';
-import { Goods } from 'src/product/gscu/goods';
+import { Goods } from 'src/product/gscu/Goods';
 
 
 @Module({

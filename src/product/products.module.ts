@@ -16,11 +16,11 @@ import { Noodle } from 'src/product/gscu/Noodle.entity';
 import { Onedate } from 'src/product/gscu/Onedate.entity';
 import { Snack } from 'src/product/gscu/Snack.entity';
 import { Tobacco } from 'src/product/gscu/Tobacco.entity';
+import { Goods } from 'src/product/gscu/Goods';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      Store,
       Alcohol,
       Beverage,
       Frozen,
