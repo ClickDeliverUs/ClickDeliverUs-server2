@@ -2,20 +2,20 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UserEntity } from '../auth/auth.entity';
 import SnakeNamingStrategy from 'typeorm-naming-strategy';
-import { Store } from 'src/product/gscu/Store.entity';
-import { Alcohol } from 'src/product/gscu/Alcohol.entity';
-import { Candy } from 'src/product/gscu/Candy.entity';
-import { Ice } from 'src/product/gscu/Ice.entity';
-import { Instant } from 'src/product/gscu/Instant.entity';
-import { Lifeuse } from 'src/product/gscu/Lifeuse.entity';
-import { Medic } from 'src/product/gscu/Medic.entity';
-import { Milk } from 'src/product/gscu/Milk.entity';
-import { Noodle } from 'src/product/gscu/Noodle.entity';
-import { Onedate } from 'src/product/gscu/Onedate.entity';
-import { Snack } from 'src/product/gscu/Snack.entity';
-import { Beverage } from 'src/product/gscu/Beverage.entity';
-import { Frozen } from 'src/product/gscu/Frozen.entity';
-import { Tobacco } from 'src/product/gscu/Tobacco.entity';
+import { Store } from 'src/product/gscu/store.entity';
+import { Alcohol } from 'src/product/gscu/alcohol.entity';
+import { Candy } from 'src/product/gscu/candy.entity';
+import { Ice } from 'src/product/gscu/ice.entity';
+import { Instant } from 'src/product/gscu/instant.entity';
+import { Lifeuse } from 'src/product/gscu/lifeuse.entity';
+import { Medic } from 'src/product/gscu/medic.entity';
+import { Milk } from 'src/product/gscu/milk.entity';
+import { Noodle } from 'src/product/gscu/noodle.entity';
+import { Onedate } from 'src/product/gscu/onedate.entity';
+import { Snack } from 'src/product/gscu/snack.entity';
+import { Beverage } from 'src/product/gscu/beverage.entity';
+import { Frozen } from 'src/product/gscu/frozen.entity';
+import { Tobacco } from 'src/product/gscu/tobacco.entity';
 
 export const TypeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',

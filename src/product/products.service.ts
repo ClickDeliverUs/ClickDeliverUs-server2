@@ -2,19 +2,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like } from 'typeorm';
-import { Alcohol } from './gscu/Alcohol.entity';
-import { Beverage } from './gscu/Beverage.entity';
-import { Candy } from './gscu/Candy.entity';
-import { Frozen } from './gscu/Frozen.entity';
-import { Ice } from './gscu/Ice.entity';
-import { Instant } from './gscu/Instant.entity';
-import { Lifeuse } from './gscu/Lifeuse.entity';
-import { Medic } from './gscu/Medic.entity';
-import { Milk } from './gscu/Milk.entity';
-import { Noodle } from './gscu/Noodle.entity';
-import { Onedate } from './gscu/Onedate.entity';
-import { Snack } from './gscu/Snack.entity';
-import { Tobacco } from './gscu/Tobacco.entity';
+import { Alcohol } from './gscu/alcohol.entity';
+import { Beverage } from './gscu/beverage.entity';
+import { Candy } from './gscu/candy.entity';
+import { Frozen } from './gscu/frozen.entity';
+import { Ice } from './gscu/ice.entity';
+import { Instant } from './gscu/instant.entity';
+import { Lifeuse } from './gscu/lifeuse.entity';
+import { Medic } from './gscu/medic.entity';
+import { Milk } from './gscu/milk.entity';
+import { Noodle } from './gscu/noodle.entity';
+import { Onedate } from './gscu/onedate.entity';
+import { Snack } from './gscu/snack.entity';
+import { Tobacco } from './gscu/tobacco.entity';
 
 @Injectable()
 export class ProductsService {

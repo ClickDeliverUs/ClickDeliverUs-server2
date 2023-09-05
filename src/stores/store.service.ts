@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Store } from '../product/gscu/Store.entity';
+import { Store } from '../product/gscu/store.entity';
 
 @Injectable()
 export class StoreService {
