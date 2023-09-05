@@ -18,3 +18,4 @@ export class Alcohol {
   @Column()
   alcohol_count: number;
 }
+ 

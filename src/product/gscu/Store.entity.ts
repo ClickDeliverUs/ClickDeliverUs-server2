@@ -18,3 +18,4 @@ export class Store {
   @Column()
   c_close: Date;
 }
+ 

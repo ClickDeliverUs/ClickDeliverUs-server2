@@ -18,3 +18,4 @@ export class Snack {
   @Column()
   snack_count: number;
 }
+ 

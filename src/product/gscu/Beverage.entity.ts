@@ -18,3 +18,4 @@ export class Beverage {
   @Column()
   beverage_count: number;
 }
+ 

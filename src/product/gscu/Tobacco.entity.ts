@@ -18,3 +18,4 @@ export class Tobacco {
   @Column()
   tabacco_count: number;
 }
+ 

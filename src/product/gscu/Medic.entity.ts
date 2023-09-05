@@ -18,3 +18,4 @@ export class Medic {
   @Column()
   medic_count: number;
 }
+ 

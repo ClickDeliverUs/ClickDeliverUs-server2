@@ -18,3 +18,4 @@ export class Ice {
   @Column()
   ice_count: number;
 }
+ 

@@ -18,3 +18,4 @@ export class Lifeuse {
   @Column()
   lifeuse_count: number;
 }
+ 

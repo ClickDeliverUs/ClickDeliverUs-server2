@@ -18,3 +18,4 @@ export class Candy {
   @Column()
   candy_count: number;
 }
+ 

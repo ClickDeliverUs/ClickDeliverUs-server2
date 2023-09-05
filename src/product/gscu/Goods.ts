@@ -18,3 +18,4 @@ export class Goods {
   @Column()
   goods_count: number;
 }
+ 

@@ -18,3 +18,4 @@ export class Instant {
   @Column()
   instant_count: number;
 }
+ 

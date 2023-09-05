@@ -18,3 +18,4 @@ export class Milk {
   @Column()
   milk_count: number;
 }
+ 
