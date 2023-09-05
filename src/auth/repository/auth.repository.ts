@@ -1,11 +1,9 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { UserEntity } from '../auth.entity';
 import { DataSource, Repository } from 'typeorm';
-import { SignUpResDto } from '../dto/signup-res.dto';
 import { SignInResDto } from '../dto/signin-res.dto';
 import { uuidToBin, binToUuid } from '../../util/uuid.util';
 import { SignUpReqDto } from '../dto/signup-req.dto';
-import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 // Entity 연결
