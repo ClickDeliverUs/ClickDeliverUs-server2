@@ -10,7 +10,7 @@ export class SignUpReqDto {
   tel: string;
   gender: boolean;
   isAdult: boolean;
-  uuid: string;
+  uuid?: string;
 
   constructor(
     name: string,
@@ -23,7 +23,7 @@ export class SignUpReqDto {
     tel: string,
     gender: boolean,
     isAdult: boolean,
-    uuid: string,
+    uuid?: string,
   ) {
     this.name = name;
     this.nickName = nickName;
