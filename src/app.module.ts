@@ -7,23 +7,24 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ChatGateway } from './chat/chat.gateway';
 import { ChatService } from './chat/chat.service';
 import { UserEntity } from './auth/auth.entity';
-import { ProductsModule } from './product/products.module';
-import { Store } from './product/gscu/store.entity';
-import { Alcohol } from './product/gscu/Alcohol.entity';
-import { Beverage } from './product/gscu/Beverage.entity';
-import { Candy } from './product/gscu/Candy.entity';
-import { Frozen } from './product/gscu/Frozen.entity';
-import { Ice } from './product/gscu/Ice.entity';
-import { StoreModule } from './stores/store.module';
-import { Instant } from './product/gscu/Instant.entity';
-import { Lifeuse } from './product/gscu/Lifeuse.entity';
-import { Medic } from './product/gscu/Medic.entity';
-import { Milk } from './product/gscu/Milk.entity';
-import { Noodle } from './product/gscu/Noodle.entity';
-import { Onedate } from './product/gscu/Onedate.entity';
-import { Snack } from './product/gscu/Snack.entity';
-import { Tobacco } from './product/gscu/Tobacco.entity';
-import { Goods } from './product/gscu/goods';
+import { ProductsModule } from 'src/product/products.module';
+import { Store } from 'src/product/gscu/store.entity';
+import { Alcohol } from 'src/product/gscu/Alcohol.entity';
+import { Beverage } from 'src/product/gscu/Beverage.entity';
+import { Candy } from 'src/product/gscu/Candy.entity';
+import { Frozen } from 'src/product/gscu/Frozen.entity';
+import { Ice } from 'src/product/gscu/Ice.entity';
+import { StoreModule } from 'src/stores/store.module';
+import { Instant } from 'src/product/gscu/Instant.entity';
+import { Lifeuse } from 'src/product/gscu/Lifeuse.entity';
+import { Medic } from 'src/product/gscu/Medic.entity';
+import { Milk } from 'src/product/gscu/Milk.entity';
+import { Noodle } from 'src/product/gscu/Noodle.entity';
+import { Onedate } from 'src/product/gscu/Onedate.entity';
+import { Snack } from 'src/product/gscu/Snack.entity';
+import { Tobacco } from 'src/product/gscu/Tobacco.entity';
+import { Goods } from 'src/product/gscu/goods';
+
 
 @Module({
   imports: [
