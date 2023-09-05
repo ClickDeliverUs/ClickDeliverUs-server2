@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { UserEntity } from '../entity/auth.entity';
+import { UserEntity } from '../auth.entity';
 import { DataSource, Repository } from 'typeorm';
 import { SignUpResDto } from '../dto/signup-res.dto';
 import { SignInResDto } from '../dto/signin-res.dto';
@@ -20,14 +20,12 @@ export class MemberCRUD extends Repository<UserEntity> {
 
     const UuidToBin: Buffer = uuidToBin(uuid);
     try {
-      const salt: string = await bcrypt.genSalt();
-      const hashedPassword: string = await bcrypt.hash(password, salt); // 10은 해시 알고리즘의 솔트(salt) 값입니다.
 
       const user: UserEntity = this.create({
         name,
         nickName,
         id,
-        password: hashedPassword,
+        password,
         tel,
         birth: new Date(birth),
         address,
