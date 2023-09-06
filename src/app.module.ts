@@ -24,6 +24,7 @@ import { Onedate } from 'src/product/gscu/onedate.entity';
 import { Snack } from 'src/product/gscu/snack.entity';
 import { Tobacco } from 'src/product/gscu/tobacco.entity';
 import { Goods } from 'src/product/gscu/goods';
+import { PaymentModule } from './payment/payment.module';
 
 
 @Module({
@@ -50,6 +51,7 @@ import { Goods } from 'src/product/gscu/goods';
     ]),
     ProductsModule,
     StoreModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService, ChatGateway, ChatService],
