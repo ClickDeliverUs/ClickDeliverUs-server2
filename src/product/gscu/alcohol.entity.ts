@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class Beverage {
+export class Alcohol {
   @PrimaryGeneratedColumn()
   u_id: number;
 
@@ -13,9 +13,9 @@ export class Beverage {
   s_id: number;
 
   @Column()
-  beverage_name: string;
+  alcohol_name: string;
 
   @Column()
-  beverage_count: number;
+  alcohol_count: number;
 }
-  
+ 

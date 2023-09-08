@@ -2,20 +2,20 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Store {
+export class Candy {
   @PrimaryGeneratedColumn()
+  u_id: number;
+
+  @Column()
+  menu_id: number;
+
+  @Column()
   s_id: number;
 
   @Column()
-  cvsname: string;
+  candy_name: string;
 
   @Column()
-  c_address: string;
-
-  @Column()
-  c_open: Date;
-
-  @Column()
-  c_close: Date;
+  candy_count: number;
 }
  

@@ -2,7 +2,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Ice {
+export class Instant {
   @PrimaryGeneratedColumn()
   u_id: number;
 
@@ -13,9 +13,9 @@ export class Ice {
   s_id: number;
 
   @Column()
-  ice_name: string;
+  instant_name: string;
 
   @Column()
-  ice_count: number;
+  instant_count: number;
 }
  

@@ -2,7 +2,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Tobacco {
+export class Lifeuse {
   @PrimaryGeneratedColumn()
   u_id: number;
 
@@ -13,9 +13,9 @@ export class Tobacco {
   s_id: number;
 
   @Column()
-  tabacco_name: string;
+  lifeuse_name: string;
 
   @Column()
-  tabacco_count: number;
+  lifeuse_count: number;
 }
  
