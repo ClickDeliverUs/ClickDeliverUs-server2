@@ -7,7 +7,7 @@ import { SignUpReqDto } from '../dto/signup-req.dto';
 
 @Injectable()
 // Entity 연결
-export class MemberCRUD extends Repository<UserEntity> {
+export class AuthRepository extends Repository<UserEntity> {
   constructor(private dataSource: DataSource) {
     super(UserEntity, dataSource.createEntityManager());
   }
@@ -73,4 +73,3 @@ export class MemberCRUD extends Repository<UserEntity> {
     }
   }
 }
-  

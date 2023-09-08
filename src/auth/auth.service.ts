@@ -5,7 +5,7 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { MemberCRUD } from './repository/auth.repository';
+import { AuthRepository } from './repository/auth.repository';
 import { SignInResDto } from './dto/signin-res.dto';
 import { SignInReqDto } from './dto/signin-req.dto';
 import * as bcrypt from 'bcryptjs';
@@ -22,13 +22,13 @@ export class AuthService {
   private logger: Logger = new Logger(AuthService.name);
 
   constructor(
-    private memberCRUD: MemberCRUD,
+    private authRepository: AuthRepository,
     private tokenRepository: TokenRepository,
     private jwtUtil: JwtUtil,
   ) {}
 
   async isDuplicateEmail(id: string): Promise<boolean> {
-    const user: SignInResDto = await this.memberCRUD.findUser(id);
+    const user: SignInResDto = await this.authRepository.findUser(id);
 
     if (user) {
       return true;
@@ -47,7 +47,7 @@ export class AuthService {
     signUpReqDto.uuid = uuid;
     signUpReqDto.password = hashedPassword;
 
-    const didUserSave: boolean = await this.memberCRUD.saveUser(signUpReqDto);
+    const didUserSave: boolean = await this.authRepository.saveUser(signUpReqDto);
 
     if (!didUserSave) {
       this.logger.log(`Duplicate user email: ${id}`);
@@ -56,7 +56,7 @@ export class AuthService {
 
     try {
       // MemberCRUD를 사용해 회원가입 로직 수행
-      return await this.memberCRUD.saveUser(signUpReqDto);
+      return await this.authRepository.saveUser(signUpReqDto);
     } catch (error) {
       // 회원가입 실패 시 예외 처리 수행
 
@@ -70,7 +70,7 @@ export class AuthService {
 
     //const currentUserDto: SignInReqDto = new SignInReqDto(id, password);
 
-    const registeredUser: SignInResDto = await this.memberCRUD.findUser(id);
+    const registeredUser: SignInResDto = await this.authRepository.findUser(id);
 
     if (!registeredUser) {
       this.logger.log(`User not found: ${id}`);
