@@ -18,7 +18,6 @@ export class AuthRepository extends Repository<UserEntity> {
 
     const UuidToBin: Buffer = uuidToBin(uuid);
     try {
-
       const user: UserEntity = this.create({
         name,
         nickName,
