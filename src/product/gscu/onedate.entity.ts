@@ -4,18 +4,18 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class Onedate {
   @PrimaryGeneratedColumn()
-  u_id: number;
+  uid: number;
 
   @Column()
-  menu_id: number;
+  menuId: number;
 
   @Column()
-  s_id: number;
+  sId: number;
 
   @Column()
-  onedate_name: string;
+  onedateName: string;
 
   @Column()
-  onedate_count: number;
+  onedateCount: number;
 }
  

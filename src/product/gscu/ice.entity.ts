@@ -4,18 +4,18 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class Ice {
   @PrimaryGeneratedColumn()
-  u_id: number;
+  uid: number;
 
   @Column()
-  menu_id: number;
+  menuId: number;
 
   @Column()
-  s_id: number;
+  sId: number;
 
   @Column()
-  ice_name: string;
+  iceName: string;
 
   @Column()
-  ice_count: number;
+  iceCount: number;
 }
  

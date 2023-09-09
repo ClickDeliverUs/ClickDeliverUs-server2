@@ -4,17 +4,17 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class Beverage {
   @PrimaryGeneratedColumn()
-  u_id: number;
+  uid: number;
 
   @Column()
-  menu_id: number;
+  menuId: number;
 
   @Column()
-  s_id: number;
+  sId: number;
 
   @Column()
-  beverage_name: string;
+  beverageName: string;
 
   @Column()
-  beverage_count: number;
+  beverageCount: number;
 }      

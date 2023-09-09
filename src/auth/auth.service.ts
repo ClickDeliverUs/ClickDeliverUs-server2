@@ -11,7 +11,7 @@ import { SignInReqDto } from './dto/signin-req.dto';
 import * as bcrypt from 'bcryptjs';
 import { SignUpReqDto } from './dto/signup-req.dto';
 import { generateNewUuidV1 } from '../util/uuid.util';
-import { AccessPayload, RefreshPayload } from 'src/types/interface/auth-interface';
+import { AccessPayload, RefreshPayload } from 'src/util/interface/auth-interface';
 import { JwtUtil } from './jwt/jwt.util';
 import { TokenRepository } from './repository/token.repository';
 import { UserToken } from './entity/token.entity';

@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Binary, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class OrderEntity {
