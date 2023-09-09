@@ -16,6 +16,8 @@ import { Snack } from 'src/product/gscu/snack.entity';
 import { Beverage } from 'src/product/gscu/beverage.entity';
 import { Frozen } from 'src/product/gscu/frozen.entity';
 import { Tobacco } from 'src/product/gscu/tobacco.entity';
+import { OrderEntity } from 'src/payment/order.entity';
+import { UserToken } from 'src/auth/entity/token.entity';
 
 export const TypeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -41,6 +43,8 @@ export const TypeOrmConfig: TypeOrmModuleOptions = {
     Onedate,
     Snack,
     Tobacco,
+    UserToken,
+    OrderEntity,
   ],
 };
 

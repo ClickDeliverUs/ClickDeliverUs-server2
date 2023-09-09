@@ -1,13 +1,76 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Order {
+export class OrderEntity {
   @PrimaryGeneratedColumn()
   orderId: string;
 
   @Column()
-  orderInfo: string; // 주문 정보를 담을 필드(타입 변환가능)
+  event: string;
 
   @Column()
-  paymentInfo: string; // 결제 정보를 담을 필드
+  recieptId: string;
+
+  @Column()
+  price: number;
+
+  @Column()
+  taxFree: number;
+
+  @Column()
+  cancelledPrice: number;
+
+  @Column()
+  cancelledTaxFree: number;
+
+  @Column()
+  orderName: string;
+
+  @Column()
+  companyName: string;
+
+  @Column()
+  gatewayUrl: string;
+
+  @Column()
+  metadata: string;
+
+  @Column()
+  sandBox: boolean;
+
+  @Column()
+  pg: string;
+
+  @Column()
+  method: string;
+
+  @Column()
+  methodSymbol: string;
+
+  @Column()
+  methodOrigin: string;
+
+  @Column()
+  methodOriginSymbol: string;
+
+  @Column()
+  purchasedAt: string;
+
+  @Column()
+  requestedAt: string;
+
+  @Column()
+  statusLocale: string;
+
+  @Column()
+  currency: string;
+
+  @Column()
+  recieptUrl: string;
+
+  @Column()
+  status: number;
+
+  @Column()
+  cardData: Buffer;
 }
