@@ -5,23 +5,26 @@ import { PaymentService } from './payment.service';
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
-  @Post('createOrder') // Create an order and returns the order info to the front end
+  @Post('createOrder') // Create order api endpoint
   async createOrder(@Body() orderInfo: any) {
     try {
       //Create an order and get the order details
-      const order = await this.paymentService.createOrder(orderInfo, 0); // 수정중
+      const order = await this.paymentService.createOrder(orderInfo); // 수정중
       // Handle the order and get the order details
       return order;
     } catch (error) {
-      // Handle errors Here
       throw new Error(`Failed to create order: ${error.message}`);
     }
   }
 
-  @Post('makePayment') // Make the payment  using the provided payment info
+  @Post('makePayment') // payment order api endpoint
   async makePayment(@Body() orderInfo: any) {
-    const paymentResult = await this.paymentService.makePayment(orderInfo);
-    // Handle the paymentResult, e.g., send it to the front end
-    return paymentResult;
+    try {
+      const paymentResult = await this.paymentService.makePayment(orderInfo);
+      // Handle the paymentResult, e.g., send it to the front end
+      return paymentResult;
+    } catch (error) {
+      throw new Error(`Failed to make payment: $error.message`);
+    }
   }
 }
