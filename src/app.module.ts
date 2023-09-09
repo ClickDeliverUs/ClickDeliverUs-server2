@@ -26,7 +26,6 @@ import { Tobacco } from 'src/product/gscu/tobacco.entity';
 import { Goods } from 'src/product/gscu/goods';
 import { PaymentModule } from './payment/payment.module';
 
-
 @Module({
   imports: [
     AuthModule,
