@@ -4,18 +4,18 @@ import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm';
 @Entity()
 export class Alcohol {
   @PrimaryGeneratedColumn()
-  u_id: number;
+  uid: number;
 
   @Column()
-  menu_id: number;
+  menuId: number;
 
   @Column()
-  s_id: number;
+  sId: number;
 
   @Column()
-  alcohol_name: string;
+  alcoholName: string;
 
   @Column()
-  alcohol_count: number;
+  alcoholCount: number;
 }
- 
+

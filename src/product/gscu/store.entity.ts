@@ -4,21 +4,21 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class Store {
   @PrimaryGeneratedColumn()
-  s_id: number;
+  sid: number;
 
   @Column()
-  cvsname: string;
+  cvsName: string;
 
   @Column()
-  c_address: string;
+  cAddress: string;
 
   @Column()
   phone : string;
 
-  @Column({type:'time'})
-  c_open: string;
+  @Column({type:'json'})
+  cOpen: StoreTime;
 
-  @Column({type:'time'})
-  c_close: string;
+  @Column({type:'json'})
+  cClose: StoreTime;
+  
 }
- 
