@@ -13,9 +13,9 @@ export class Snack {
   sId: number;
 
   @Column()
-  snackName: string;
+  product: string;
 
   @Column()
-  snackCount: number;
+  count: number;
 }
  

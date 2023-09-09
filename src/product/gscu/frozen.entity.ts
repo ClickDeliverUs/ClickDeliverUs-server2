@@ -13,9 +13,9 @@ export class Frozen {
   sId: number;
 
   @Column()
-  frozenName: string;
+  product: string;
 
   @Column()
-  frozenCount: number;
+  count: number;
 }
  

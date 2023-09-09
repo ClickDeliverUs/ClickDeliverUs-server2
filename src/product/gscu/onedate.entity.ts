@@ -13,9 +13,9 @@ export class Onedate {
   sId: number;
 
   @Column()
-  onedateName: string;
+  product: string;
 
   @Column()
-  onedateCount: number;
+  count: number;
 }
  
