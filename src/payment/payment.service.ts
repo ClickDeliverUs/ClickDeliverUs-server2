@@ -1,29 +1,58 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { OrderReqDto } from './dto/order_req.dto';
+import { OrderEntity } from './order.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { OrderRepository } from './order.repository';
 
 @Injectable()
 export class PaymentService {
-  async createOrder(orderInfo: any) {
-    // Make order creation logic here
-    // Use orderinfo to create an order and returns order info
-    const order = await this.createOrderLogic(orderInfo);
-    return order;
-  }
+  private logger: Logger = new Logger(PaymentService.name);
 
-  async makePayment(orderInfo: any) {
+  constructor(
+    @InjectRepository(OrderEntity)
+    private readonly orderRepository: OrderRepository,
+  ) {}
+
+  async saveOrder(orderReqDto: OrderReqDto): Promise<OrderEntity> {
     try {
-      // Logic that fetches and processes payment info
-      const paymentResult = await this.processPayment(orderInfo);
-      return paymentResult;
+      // OrderReqDto에서 order엔티티로 매핑
+      const order = this.mapDtoToEntity(orderReqDto);
+
+      //주문 정보를 데이터베이스에 저장
+      const savedOrder = await this.orderRepository.save(order);
+      return savedOrder;
     } catch (error) {
-      throw new Error(`Failed to make payment: ${error.message}`);
+      throw new Error(`Failed to save order: ${error.message}`);
     }
   }
 
-  async createOrderLogic(orderInfo: any) {
-    return 0;
-  }
+  private mapDtoToEntity(orderReqDto: OrderReqDto): OrderEntity {
+    const order = new OrderEntity();
+    order.orderId = orderReqDto.orderId;
+    order.event = orderReqDto.event;
+    order.recieptId = orderReqDto.recieptId;
+    order.price = orderReqDto.price;
+    order.taxFree = orderReqDto.taxFree;
+    order.cancelledPrice = orderReqDto.cancelledPrice;
+    order.cancelledTaxFree = orderReqDto.cancelledTaxFree;
+    order.orderName = orderReqDto.orderName;
+    order.companyName = orderReqDto.companyName;
+    order.gatewayUrl = orderReqDto.gatewayUrl;
+    order.metadata = orderReqDto.metadata;
+    order.sandBox = orderReqDto.sandBox;
+    order.pg = orderReqDto.pg;
+    order.method = orderReqDto.method;
+    order.methodSymbol = orderReqDto.methodSymbol;
+    order.methodOrigin = orderReqDto.methodOrigin;
+    order.methodOriginSymbol = orderReqDto.methodOriginSymbol;
+    order.purchasedAt = orderReqDto.purchasedAt;
+    order.requestedAt = orderReqDto.requestedAt;
+    order.statusLocale = orderReqDto.statusLocale;
+    order.currency = orderReqDto.currency;
+    order.recieptUrl = orderReqDto.recieptUrl;
+    order.status = orderReqDto.status;
+    order.cardData = orderReqDto.cardData;
 
-  async processPayment(orderInfo: any) {
-    return 0;
+    return order;
   }
 }

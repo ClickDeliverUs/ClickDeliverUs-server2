@@ -6,6 +6,9 @@ export class OrderEntity {
   orderId: string;
 
   @Column()
+  event: string;
+
+  @Column()
   recieptId: string;
 
   @Column()
@@ -60,7 +63,7 @@ export class OrderEntity {
   statusLocale: string;
 
   @Column()
-  Currency: string;
+  currency: string;
 
   @Column()
   recieptUrl: string;
@@ -69,8 +72,5 @@ export class OrderEntity {
   status: number;
 
   @Column()
-  cardData: Buffer;    //타입캐스팅필요
-
-  @Column()
-  paymentInfo: string; // 결제 정보를 담을 필드
+  cardData: Buffer;
 }
