@@ -13,9 +13,12 @@ export class Store {
   c_address: string;
 
   @Column()
-  c_open: Date;
+  phone : string;
 
-  @Column()
-  c_close: Date;
+  @Column({type:'time'})
+  c_open: string;
+
+  @Column({type:'time'})
+  c_close: string;
 }
  
