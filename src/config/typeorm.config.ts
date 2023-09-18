@@ -19,7 +19,8 @@ import { Tobacco } from 'src/product/gscu/tobacco.entity';
 import { UserToken } from 'src/auth/entity/token.entity';
 import { OrderEntity } from 'src/payment/order.entity';
 
-const isLocal: boolean = false;
+
+const isLocal: boolean = true;
 
 export const TypeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -47,6 +48,7 @@ export const TypeOrmConfig: TypeOrmModuleOptions = {
     Tobacco,
     UserToken,
     OrderEntity
+    
   ],
 };
 

@@ -8,8 +8,8 @@ export class SignUpReqDto {
   birth: Date;
   address: string;
   tel: string;
-  gender: boolean;
-  isAdult: boolean;
+  gender: number;
+  isAdult: number;
   uuid?: string;
 
   constructor(
@@ -21,8 +21,8 @@ export class SignUpReqDto {
     birth: Date,
     address: string,
     tel: string,
-    gender: boolean,
-    isAdult: boolean,
+    gender: number,
+    isAdult: number,
     uuid?: string,
   ) {
     this.name = name;
