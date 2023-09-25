@@ -5,10 +5,10 @@ import { PaymentService } from './payment.service';
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
-  @Post('createOrder') // Create order api endpoint
+  @Post('/createOrder') // Create order api endpoint
   async createOrder(@Body() orderInfo: any) {
     try {
-      const order = await this.paymentService.saveOrder(orderInfo); // 수정중
+      const order = await this.paymentService.saveOrder(orderInfo.data); // 수정중
       return order;
     } catch (error) {
       throw new Error(`Failed to create order: ${error.message}`);

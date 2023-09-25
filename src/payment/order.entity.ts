@@ -1,76 +1,64 @@
-import { Binary, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class OrderEntity {
   @PrimaryGeneratedColumn()
-  orderId: string;
+  idx: number;
 
   @Column()
-  event: string;
+  order_id: string;
 
   @Column()
-  recieptId: string;
+  receipt_id: string;
+
+  @Column()
+  uuid_order: Buffer;
+
+  @Column()
+  uuid_rider: Buffer;
+
+  @Column()
+  s_id: Buffer;
 
   @Column()
   price: number;
 
   @Column()
-  taxFree: number;
+  cancelled_price: number;
 
   @Column()
-  cancelledPrice: number;
+  order_name: string;
 
   @Column()
-  cancelledTaxFree: number;
+  company_name: string;
 
-  @Column()
-  orderName: string;
-
-  @Column()
-  companyName: string;
-
-  @Column()
-  gatewayUrl: string;
-
-  @Column()
-  metadata: string;
-
-  @Column()
-  sandBox: boolean;
+  @Column('json')
+  metadata: Buffer;
 
   @Column()
   pg: string;
 
   @Column()
-  method: string;
+  method_symbol: string;
 
   @Column()
-  methodSymbol: string;
+  method_origin_symbol: string;
 
   @Column()
-  methodOrigin: string;
+  purchased_at: string;
 
   @Column()
-  methodOriginSymbol: string;
+  requested_at: string;
 
   @Column()
-  purchasedAt: string;
+  status_locale: string;
 
   @Column()
-  requestedAt: string;
-
-  @Column()
-  statusLocale: string;
-
-  @Column()
-  currency: string;
-
-  @Column()
-  recieptUrl: string;
+  reciept_url: string;
 
   @Column()
   status: number;
 
-  @Column()
-  cardData: Buffer;
+  @Column('json')
+  card_data: Buffer;
 }

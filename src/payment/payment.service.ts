@@ -28,30 +28,25 @@ export class PaymentService {
 
   private mapDtoToEntity(orderReqDto: OrderReqDto): OrderEntity {
     const order = new OrderEntity();
-    order.orderId = orderReqDto.orderId;
-    order.event = orderReqDto.event;
-    order.recieptId = orderReqDto.recieptId;
+    order.order_id = orderReqDto.order_id;
+    order.receipt_id = orderReqDto.receipt_id;
+    order.uuid_order = orderReqDto.uuid_order;
+    order.uuid_rider = orderReqDto.uuid_rider;
+    order.s_id = orderReqDto.s_id;
     order.price = orderReqDto.price;
-    order.taxFree = orderReqDto.taxFree;
-    order.cancelledPrice = orderReqDto.cancelledPrice;
-    order.cancelledTaxFree = orderReqDto.cancelledTaxFree;
-    order.orderName = orderReqDto.orderName;
-    order.companyName = orderReqDto.companyName;
-    order.gatewayUrl = orderReqDto.gatewayUrl;
+    order.cancelled_price = orderReqDto.cancelled_price;
+    order.order_name = orderReqDto.order_name;
+    order.company_name = orderReqDto.company_name;
     order.metadata = orderReqDto.metadata;
-    order.sandBox = orderReqDto.sandBox;
     order.pg = orderReqDto.pg;
-    order.method = orderReqDto.method;
-    order.methodSymbol = orderReqDto.methodSymbol;
-    order.methodOrigin = orderReqDto.methodOrigin;
-    order.methodOriginSymbol = orderReqDto.methodOriginSymbol;
-    order.purchasedAt = orderReqDto.purchasedAt;
-    order.requestedAt = orderReqDto.requestedAt;
-    order.statusLocale = orderReqDto.statusLocale;
-    order.currency = orderReqDto.currency;
-    order.recieptUrl = orderReqDto.recieptUrl;
+    order.method_symbol = orderReqDto.method_symbol;
+    order.method_origin_symbol = orderReqDto.method_origin_symbol;
+    order.purchased_at = orderReqDto.purchased_at;
+    order.requested_at = orderReqDto.requested_at;
+    order.status_locale = orderReqDto.status_locale;
+    order.reciept_url = orderReqDto.receipt_url;
     order.status = orderReqDto.status;
-    order.cardData = orderReqDto.cardData;
+    order.card_data = orderReqDto.card_data;
 
     return order;
   }
