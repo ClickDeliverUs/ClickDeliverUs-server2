@@ -13,9 +13,9 @@ export class Candy {
   sId: number;
 
   @Column()
-  candyName: string;
+  product: string;
 
   @Column()
-  candyCount: number;
+  count: number;
 }
  

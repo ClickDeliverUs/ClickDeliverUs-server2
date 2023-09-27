@@ -13,9 +13,9 @@ export class Lifeuse {
   sId: number;
 
   @Column()
-  lifeuseName: string;
+  product: string;
 
   @Column()
-  lifeuseCount: number;
+  count: number;
 }
  

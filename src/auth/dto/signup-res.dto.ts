@@ -6,10 +6,10 @@ export class SignUpResDto {
   tel: string;
   password: string;
   age: number;
-  gender: boolean;
+  gender: number;
   address: string;
   createdDT?: Date;
-  isAdult: boolean;
+  isAdult: number;
 
   constructor(
     uid: number,
@@ -19,10 +19,10 @@ export class SignUpResDto {
     tel: string,
     password: string,
     age: number,
-    gender: boolean,
+    gender: number,
     address: string,
     createdDT: Date,
-    isAdult: boolean,
+    isAdult: number,
   ) {
     this.uid = uid;
     this.uuid = uuid;

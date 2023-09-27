@@ -5,6 +5,7 @@ import { SignInResDto } from '../dto/signin-res.dto';
 import { uuidToBin, binToUuid } from '../../util/uuid.util';
 import { SignUpReqDto } from '../dto/signup-req.dto';
 
+
 @Injectable()
 // Entity 연결
 export class AuthRepository extends Repository<UserEntity> {
@@ -13,7 +14,7 @@ export class AuthRepository extends Repository<UserEntity> {
   }
 
   async saveUser(signUpReqDto: SignUpReqDto): Promise<boolean> {
-    const { uuid, name, nickName, id, password, tel, birth, gender, address, isAdult } =
+    const { uuid, name, nickName, id, password, tel, birth, gender, address, isAdult, age } =
       signUpReqDto;
 
     const UuidToBin: Buffer = uuidToBin(uuid);
@@ -26,10 +27,11 @@ export class AuthRepository extends Repository<UserEntity> {
         tel,
         birth: new Date(birth),
         address,
+        age,
         gender,
         isAdult,
         uuid: UuidToBin,
-        createdDT: new Date(),
+        createdDT: new Date()
       });
 
       await this.save(user);
@@ -63,6 +65,11 @@ export class AuthRepository extends Repository<UserEntity> {
         user.name,
         user.nickName,
         user.tel,
+        user.age,
+        user.isAdult,
+        user.createdDT as Date,
+        user.gender,
+      
       );
 
       return signInResDto;

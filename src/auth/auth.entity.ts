@@ -24,11 +24,17 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'date', nullable: false })
   birth: Date;
 
-  @Column({ type: 'boolean', nullable: false })
-  gender: boolean;
+  @Column({ type: 'tinyint', nullable: false })         
+  gender: number;
+
+  @Column({type: 'int', default: 0 })
+  age: number;
 
   @Column({ length: 50, type: 'varchar', nullable: false })
   address: string;
+
+  @Column({ type: 'tinyint', nullable: false })
+  isAdult: number;
 
   @Column({ length: 14, type: 'varchar', nullable: false })
   tel: string;
@@ -36,6 +42,6 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'date', nullable: false })
   createdDT: Date;
 
-  @Column({ type: 'boolean', nullable: false })
-  isAdult: boolean;
+
 }
+

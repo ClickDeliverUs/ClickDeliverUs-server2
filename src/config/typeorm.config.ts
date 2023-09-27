@@ -19,12 +19,15 @@ import { Tobacco } from 'src/product/gscu/tobacco.entity';
 import { UserToken } from 'src/auth/entity/token.entity';
 import { OrderEntity } from 'src/payment/order.entity';
 
+
+const isLocal: boolean = true;
+
 export const TypeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: process.env.DB_HOST,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+  host: isLocal ? process.env.DB_HOST_DEV : process.env.DB_HOST,
+  username:isLocal ? process.env.DB_USERNAME_DEV : process.env.DB_USERNAME,
+  password:isLocal ? process.env.DB_PASSWORD_DEV : process.env.DB_PASSWORD,
+  database:isLocal ? process.env.DB_DATABASE_DEV : process.env.DB_DATABASE,
   synchronize: true,
   namingStrategy: new SnakeNamingStrategy(),
   entities: [
@@ -45,6 +48,7 @@ export const TypeOrmConfig: TypeOrmModuleOptions = {
     Tobacco,
     UserToken,
     OrderEntity
+    
   ],
 };
 

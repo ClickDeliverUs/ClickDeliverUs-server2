@@ -13,9 +13,9 @@ export class Ice {
   sId: number;
 
   @Column()
-  iceName: string;
+  product: string;
 
   @Column()
-  iceCount: number;
+  count: number;
 }
  

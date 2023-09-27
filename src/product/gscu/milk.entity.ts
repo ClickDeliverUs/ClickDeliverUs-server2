@@ -13,9 +13,9 @@ export class Milk {
   sId: number;
 
   @Column()
-  mlikName: string;
+  product: string;
 
   @Column()
-  milkCount: number;
+  count: number;
 }
  

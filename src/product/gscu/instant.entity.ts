@@ -13,9 +13,9 @@ export class Instant {
   sId: number;
 
   @Column()
-  instantName: string;
+  product: string;
 
   @Column()
-  instantCount: number;
+  count: number;
 }
  

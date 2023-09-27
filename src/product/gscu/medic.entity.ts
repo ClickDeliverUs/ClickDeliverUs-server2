@@ -13,9 +13,9 @@ export class Medic {
   sId: number;
 
   @Column()
-  medicName: string;
+  product: string;
 
   @Column()
-  medicCount: number;
+  count: number;
 }
  

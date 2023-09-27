@@ -13,9 +13,9 @@ export class Tobacco {
   sId: number;
 
   @Column()
-  tabaccoName: string;
+  product: string;
 
   @Column()
-  tabaccoCount: number;
+  count: number;
 }
  

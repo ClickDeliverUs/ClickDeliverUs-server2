@@ -13,8 +13,8 @@ export class Beverage {
   sId: number;
 
   @Column()
-  beverageName: string;
+  product: string;
 
   @Column()
-  beverageCount: number;
+  count: number;
 }      

@@ -13,9 +13,9 @@ export class Noodle {
   sId: number;
 
   @Column()
-  noodleName: string;
+  product: string;
 
   @Column()
-  noodleCount: number;
+  count: number;
 }
  

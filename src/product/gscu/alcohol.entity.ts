@@ -13,9 +13,9 @@ export class Alcohol {
   sId: number;
 
   @Column()
-  alcoholName: string;
+  product: string;
 
   @Column()
-  alcoholCount: number;
+  count: number;
 }
 
