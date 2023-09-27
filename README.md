@@ -15,3 +15,5 @@ validationPipe 사용하는 부분 오류나서 일단 주석처리함
 일단 stomp가 아닌 websocket으로 설치하였으며 테스트 용도로 채팅방 개설, 삭제, 목록 띄우기를 하는 경로 설정
 
 2023.9.9(토) Payment 모듈 접근하면 `400 Bad request`가 뜸. 그것 외에는 API로 내용을 받아와 DB에 저장하는 기능을 구현함.
+
+2023.9.27(수) Payment 모듈의 db에서 결제기록을 찾아 반환하는 `getPaymentInfo`를 작성함. 추가로 이를 수행하는 `fetchOrder()`도 구현.<br>근데 로컬 mysql 권한과 대소문자 구분 문제로 테스트 불가

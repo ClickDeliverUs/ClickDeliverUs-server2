@@ -20,7 +20,7 @@ import { UserToken } from 'src/auth/entity/token.entity';
 import { OrderEntity } from 'src/payment/order.entity';
 
 
-const isLocal: boolean = true;
+const isLocal = true;
 
 export const TypeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
