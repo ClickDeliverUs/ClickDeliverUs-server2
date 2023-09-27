@@ -16,6 +16,8 @@ import { JwtUtil } from './jwt/jwt.util';
 import { TokenRepository } from './repository/token.repository';
 import { UserToken } from './entity/token.entity';
 import { RegenerateTokenDto } from './dto/regenerate-token.dto';
+import axios from 'axios';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -25,6 +27,7 @@ export class AuthService {
     private authRepository: AuthRepository,
     private tokenRepository: TokenRepository,
     private jwtUtil: JwtUtil,
+    private jwtService: JwtService
   ) {}
 
   async isDuplicateEmail(id: string): Promise<boolean> {
@@ -62,9 +65,33 @@ export class AuthService {
 
       throw new Error('회원가입에 실패했습니다.');
     }
-    return didUserSave;
   }
+  
+  async kakaoLogin(accessToken: string) {
+    const url = 'https://kapi.kakao.com/v2/user/me';
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    }
 
+    try {
+      const kakaoResp = await axios.get(url, { headers });
+      const kakaoUserId: string = kakaoResp.data.id;
+
+      // TypeORM을 사용하여 데이터베이스에서 사용자를 확인합니다.
+      const user = await this.authRepository.findOneBy({ id: kakaoUserId });
+
+      if (user) {
+        // 사용자가 회원인 경우, JWT 토큰을 생성하고 반환합니다.
+        const jwtToken = this.jwtService.sign({ userId: user.id });
+        return jwtToken;
+      } else {
+        // 사용자가 회원이 아닌 경우, 적절한 처리를 수행하고 예외를 throw하거나 토큰을 생성하거나 할 수 있습니다.
+        throw new Error('사용자가 회원이 아닙니다.');
+      }
+    } catch (error) {
+      throw new Error('카카오 로그인 실패');
+   }
+  }
   async signIn(signInReqDto: SignInReqDto): Promise<SignInResDto> {
     const { id, password } = signInReqDto;
 

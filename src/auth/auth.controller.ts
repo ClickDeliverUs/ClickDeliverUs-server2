@@ -13,8 +13,14 @@ export class AuthController {
   async signUp(@Body() signUpReqDto: SignUpReqDto): Promise<boolean> {
     return await this.authService.register(signUpReqDto);
   }
+
   @Post('signin')
   async signIn(@Body() signInDto: SignInDto): Promise<SignInResDto> {
     return await this.authService.signIn(signInDto);
+  }
+
+  @Post('kakao-login')
+  async kakaoLogin(@Body() accessToken: string): Promise<string> {
+    return await this.authService.kakaoLogin(accessToken);
   }
 }
