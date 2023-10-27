@@ -18,6 +18,7 @@ import { UserToken } from './entity/token.entity';
 import { RegenerateTokenDto } from './dto/regenerate-token.dto';
 import axios from 'axios';
 import { JwtService } from '@nestjs/jwt';
+import { UserEntity } from './auth.entity';
 
 @Injectable()
 export class AuthService {
@@ -75,22 +76,35 @@ export class AuthService {
 
     try {
       const kakaoResp = await axios.get(url, { headers });
-      const kakaoUserId: string = kakaoResp.data.id;
+      const kakaoUserEmail: string = kakaoResp.data.account_email;
 
       // TypeORM을 사용하여 데이터베이스에서 사용자를 확인합니다.
-      const user = await this.authRepository.findOneBy({ id: kakaoUserId });
+      let user:UserEntity = await this.authRepository.findOneBy({ id: kakaoUserEmail });
+      if (!user) {
+        // 데이터베이스에 카카오 유저 정보가 없는 경우
+        // 엔티티를 생성 후 user에 할당
 
-      if (user) {
-        // 사용자가 회원인 경우, JWT 토큰을 생성하고 반환합니다.
-        const jwtToken = this.jwtService.sign({ userId: user.id });
-        return jwtToken;
-      } else {
-        // 사용자가 회원이 아닌 경우, 적절한 처리를 수행하고 예외를 throw하거나 토큰을 생성하거나 할 수 있습니다.
-        throw new Error('사용자가 회원이 아닙니다.');
+        user = new UserEntity();
+        user.id = kakaoUserEmail;
+        user.nickName = kakaoResp.data.profile_nickname;
+
+        user = await this.authRepository.save(user);            
       }
+
+      const jwtToken = this.jwtService.sign({ userId: user.id }); // + 유저 정보까지
+    
+      const kakaouser = {
+        token: jwtToken,
+        user: {
+          id: user.id,
+          nickName: user.nickName,
+        },    //토큰과 카카오유저정보 
+      };
+
+      return kakaouser;
     } catch (error) {
       throw new Error('카카오 로그인 실패');
-   }
+    }
   }
   async signIn(signInReqDto: SignInReqDto): Promise<SignInResDto> {
     const { id, password } = signInReqDto;

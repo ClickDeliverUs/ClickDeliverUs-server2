@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/default-user.dto';
 import { SignUpReqDto } from './dto/signup-req.dto';
@@ -20,7 +20,7 @@ export class AuthController {
   }
 
   @Post('kakao-login')
-  async kakaoLogin(@Body() accessToken: string): Promise<string> {
-    return await this.authService.kakaoLogin(accessToken);
+  async kakaoLogin(@Req() req): Promise<void> {
+    await this.authService.kakaoLogin(req.headers["authorization"]);
   }
 }

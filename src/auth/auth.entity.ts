@@ -3,14 +3,14 @@ import { BaseEntity, Column, Entity, Index, PrimaryGeneratedColumn } from 'typeo
 @Entity()
 export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
-  uid: number;
+  uid?: number;
 
   @Index()
   @Column({ type: 'binary', length: 16 })
-  uuid: Buffer;
+  uuid?: Buffer;
 
   @Column({ type: 'varchar', length: 10 })
-  name: string;
+  name?: string;
 
   @Column({ type: 'varchar', length: 10 })
   nickName: string;
@@ -19,26 +19,26 @@ export class UserEntity extends BaseEntity {
   id: string;
 
   @Column({ type: 'varchar' })
-  password: string;
+  password?: string;
 
   @Column({ type: 'date', nullable: false })
-  birth: Date;
+  birth?: Date;
 
   @Column({ type: 'tinyint', nullable: false })
-  gender: number;
+  gender?: number;
 
   @Column({ type: 'int', default: 0 })
-  age: number;
+  age?: number;
 
   @Column({ length: 50, type: 'varchar', nullable: false })
-  address: string;
+  address?: string;
 
   @Column({ type: 'tinyint', nullable: false })
-  isAdult: number;
+  isAdult?: number;
 
   @Column({ length: 14, type: 'varchar', nullable: false })
-  tel: string;
+  tel?: string;
 
   @Column({ type: 'date', nullable: false })
-  createdDT: Date;
+  createdDT?: Date;
 }
