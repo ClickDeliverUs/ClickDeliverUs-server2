@@ -18,16 +18,16 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 14, unique: true })
   id: string;
 
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar' })
   password: string;
 
   @Column({ type: 'date', nullable: false })
   birth: Date;
 
-  @Column({ type: 'tinyint', nullable: false })         
+  @Column({ type: 'tinyint', nullable: false })
   gender: number;
 
-  @Column({type: 'int', default: 0 })
+  @Column({ type: 'int', default: 0 })
   age: number;
 
   @Column({ length: 50, type: 'varchar', nullable: false })
@@ -41,7 +41,4 @@ export class UserEntity extends BaseEntity {
 
   @Column({ type: 'date', nullable: false })
   createdDT: Date;
-
-
 }
-
