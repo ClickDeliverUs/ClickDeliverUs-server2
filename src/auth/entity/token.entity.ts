@@ -1,9 +1,12 @@
-import { BaseEntity, Column, Entity, Index, PrimaryColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class UserToken extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Index({ unique: true })
-  @PrimaryColumn({ type: 'binary', length: 16 })
+  @Column({ type: 'binary', length: 16 })
   uuid: Buffer;
 
   @Column({ type: 'text' })

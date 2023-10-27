@@ -1,7 +1,8 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { OrderEntity } from './order.entity';
+import { Injectable } from '@nestjs/common';
 
-@EntityRepository(OrderEntity)
+@Injectable()
 export class OrderRepository extends Repository<OrderEntity> {
   // Logic
 }

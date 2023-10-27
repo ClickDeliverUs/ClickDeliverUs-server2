@@ -18,9 +18,10 @@ import { Frozen } from 'src/product/gscu/frozen.entity';
 import { Tobacco } from 'src/product/gscu/tobacco.entity';
 import { UserToken } from 'src/auth/entity/token.entity';
 import { OrderEntity } from 'src/payment/order.entity';
+import { Goods } from 'src/product/gscu/goods';
 
 
-const isLocal = true;
+const isLocal = false;
 
 export const TypeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -31,7 +32,7 @@ export const TypeOrmConfig: TypeOrmModuleOptions = {
   synchronize: true,
   namingStrategy: new SnakeNamingStrategy(),
   entities: [
-    UserEntity,
+    UserEntity, 
     Store,
     Alcohol,
     Beverage,
@@ -47,8 +48,8 @@ export const TypeOrmConfig: TypeOrmModuleOptions = {
     Snack,
     Tobacco,
     UserToken,
+    Goods,
     OrderEntity
-    
   ],
 };
 
