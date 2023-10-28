@@ -69,6 +69,7 @@ export class AuthService {
   }
   
   async kakaoLogin(accessToken: string) {
+	  console.log(accessToken);
     const url = 'https://kapi.kakao.com/v2/user/me';
     const headers = {
       Authorization: `Bearer ${accessToken}`,
@@ -76,7 +77,8 @@ export class AuthService {
 
     try {
       const kakaoResp = await axios.get(url, { headers });
-      const kakaoUserEmail: string = kakaoResp.data.account_email;
+      const kakaoUserEmail: string = kakaoResp.data.kakao_account.email;
+      const kakaoUserNickname: string = kakaoResp.data.kakao_account.profile.nickname;
 
       // TypeORM을 사용하여 데이터베이스에서 사용자를 확인합니다.
       let user:UserEntity = await this.authRepository.findOneBy({ id: kakaoUserEmail });
@@ -86,7 +88,7 @@ export class AuthService {
 
         user = new UserEntity();
         user.id = kakaoUserEmail;
-        user.nickName = kakaoResp.data.profile_nickname;
+        user.nickName = kakaoUserNickname;
 
         user = await this.authRepository.save(user);            
       }
@@ -103,6 +105,7 @@ export class AuthService {
 
       return kakaouser;
     } catch (error) {
+	console.log(error);
       throw new Error('카카오 로그인 실패');
     }
   }
