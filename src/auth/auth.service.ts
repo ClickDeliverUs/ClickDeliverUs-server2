@@ -19,6 +19,8 @@ import { RegenerateTokenDto } from './dto/regenerate-token.dto';
 import axios from 'axios';
 import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from './auth.entity';
+import { uuidToBin, binToUuid} from '../util/uuid.util';
+
 
 @Injectable()
 export class AuthService {
@@ -72,31 +74,50 @@ export class AuthService {
 	  console.log(accessToken);
     const url = 'https://kapi.kakao.com/v2/user/me';
     const headers = {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: accessToken
     }
 
     try {
       const kakaoResp = await axios.get(url, { headers });
+      console.log('Kakao Response:', kakaoResp.data);
       const kakaoUserEmail: string = kakaoResp.data.kakao_account.email;
-      const kakaoUserNickname: string = kakaoResp.data.kakao_account.profile.nickname;
+      const kakaoUserNickname: string = kakaoResp.data.properties.nickname;
 
       // TypeORM을 사용하여 데이터베이스에서 사용자를 확인합니다.
       let user:UserEntity = await this.authRepository.findOneBy({ id: kakaoUserEmail });
       if (!user) {
+        console.log('가나')
         // 데이터베이스에 카카오 유저 정보가 없는 경우
         // 엔티티를 생성 후 user에 할당
 
         user = new UserEntity();
+        user.uuid = uuidToBin(generateNewUuidV1());
         user.id = kakaoUserEmail;
         user.nickName = kakaoUserNickname;
 
         user = await this.authRepository.save(user);            
+      
       }
+      
+      const accessPayload: AccessPayload = {
+        uuid:binToUuid(user.uuid),
+        id:user.id,
+        name:user.nickName
+      }
+      const acc= this.jwtUtil.generateAccessToken(accessPayload)
+      
+    const refreshPayload: RefreshPayload = {
+      uuid:binToUuid(user.uuid),
+      id:user.id,
+    }
 
-      const jwtToken = this.jwtService.sign({ userId: user.id }); // + 유저 정보까지
-    
+    const ref = this.jwtUtil.generateRefershToken(refreshPayload)
+
       const kakaouser = {
-        token: jwtToken,
+        token: {
+               accessToken: acc, 
+               refreshToken: ref
+              },
         user: {
           id: user.id,
           nickName: user.nickName,
@@ -105,7 +126,7 @@ export class AuthService {
 
       return kakaouser;
     } catch (error) {
-	console.log(error);
+	//console.log('Kakao API Error:', error);
       throw new Error('카카오 로그인 실패');
     }
   }
