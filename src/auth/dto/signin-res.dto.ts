@@ -1,9 +1,6 @@
 import { Expose } from 'class-transformer';
 
-
-
 export class SignInResDto {
-  
   uuid: string;
   id: string;
   password: string;
@@ -30,7 +27,6 @@ export class SignInResDto {
     gender?: number,
     createdDT?: Date,
     isAdult?: number,
-    
   ) {
     this.uuid = uuid;
     this.name = name;
@@ -46,5 +42,4 @@ export class SignInResDto {
   }
   @Expose({ name: 'uid', toPlainOnly: false })
   uid?: number;
-
 }
