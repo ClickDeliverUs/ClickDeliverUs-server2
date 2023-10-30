@@ -71,65 +71,76 @@ export class AuthService {
   }
   
   async kakaoLogin(accessToken: string) {
-	  console.log(accessToken);
+    console.log(accessToken);
     const url = 'https://kapi.kakao.com/v2/user/me';
     const headers = {
       Authorization: accessToken
     }
-
+  
     try {
       const kakaoResp = await axios.get(url, { headers });
       console.log('Kakao Response:', kakaoResp.data);
       const kakaoUserEmail: string = kakaoResp.data.kakao_account.email;
       const kakaoUserNickname: string = kakaoResp.data.properties.nickname;
-
+  
       // TypeORM을 사용하여 데이터베이스에서 사용자를 확인합니다.
-      let user:UserEntity = await this.authRepository.findOneBy({ id: kakaoUserEmail });
+      let user: UserEntity = await this.authRepository.findOneBy({ id: kakaoUserEmail });
+  
       if (!user) {
-        console.log('가나')
         // 데이터베이스에 카카오 유저 정보가 없는 경우
         // 엔티티를 생성 후 user에 할당
-
         user = new UserEntity();
         user.uuid = uuidToBin(generateNewUuidV1());
         user.id = kakaoUserEmail;
         user.nickName = kakaoUserNickname;
+  
+        user = await this.authRepository.save(user);
 
-        user = await this.authRepository.save(user);            
-      
+      } else {
+
       }
       
+      // 토큰 발급 및 정보 반환
       const accessPayload: AccessPayload = {
-        uuid:binToUuid(user.uuid),
-        id:user.id,
-        name:user.nickName
+        uuid: binToUuid(user.uuid),
+        id: user.id,
+        name: user.nickName
       }
-      const acc= this.jwtUtil.generateAccessToken(accessPayload)
-      
-    const refreshPayload: RefreshPayload = {
-      uuid:binToUuid(user.uuid),
-      id:user.id,
-    }
+      const acc = this.jwtUtil.generateAccessToken(accessPayload)
+  
+      const refreshPayload: RefreshPayload = {
+        uuid: binToUuid(user.uuid),
+        id: user.id,
+      }
+  
+      const ref = this.jwtUtil.generateRefershToken(refreshPayload)
+  
+      const newRefreshToken = this.jwtUtil.generateRefershToken(refreshPayload);
 
-    const ref = this.jwtUtil.generateRefershToken(refreshPayload)
+      // 데이터베이스에 리프레시 토큰 저장 추가
+      const userToken = new UserToken();
+      userToken.uuid = user.uuid;
+      userToken.refreshToken = newRefreshToken;
+      await this.tokenRepository.save(userToken);
 
       const kakaouser = {
         token: {
-               accessToken: acc, 
-               refreshToken: ref
-              },
+          accessToken: acc,
+          refreshToken: ref
+        },
         user: {
           id: user.id,
           nickName: user.nickName,
-        },    //토큰과 카카오유저정보 
+        }
       };
-
+  
       return kakaouser;
     } catch (error) {
-	//console.log('Kakao API Error:', error);
+      console.log('Kakao API Error:', error);
       throw new Error('카카오 로그인 실패');
     }
   }
+  
   async signIn(signInReqDto: SignInReqDto): Promise<SignInResDto> {
     const { id, password } = signInReqDto;
 
@@ -161,7 +172,6 @@ export class AuthService {
         const accessToken: string = this.jwtUtil.generateAccessToken(accessPayload);
         const refreshToken: string = this.jwtUtil.generateRefershToken(refreshPayload);
 
-        // 여기도 주입이 안돼있다
         await this.tokenRepository.saveRefreshToken(
           registeredUser.uuid,
           registeredUser.id,

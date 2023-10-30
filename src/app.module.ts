@@ -14,7 +14,7 @@ import { PaymentModule } from './payment/payment.module';
 import { StoreModule } from './stores/store.module';
 import { OrderEntity } from './payment/order.entity';
 import { UserToken } from './auth/entity/token.entity';
-import { DeliveryModule } from './delivery/delivery.module';
+//import { DeliveryModule } from './delivery/delivery.module';
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { DeliveryModule } from './delivery/delivery.module';
     ProductsModule,
     StoreModule,
     PaymentModule,
-    DeliveryModule,
+    //DeliveryModule,
   ],
   controllers: [AppController],
   providers: [AppService, ChatGateway, ChatService],
