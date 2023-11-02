@@ -15,7 +15,7 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 10 })
   nickName: string;
 
-  @Column({ type: 'varchar', length: 14, unique: true })
+  @Column({ type: 'varchar', unique: true })
   id: string;
 
   @Column({ type: 'varchar' })

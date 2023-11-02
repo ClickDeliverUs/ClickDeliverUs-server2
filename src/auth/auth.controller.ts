@@ -20,7 +20,7 @@ export class AuthController {
   }
 
   @Post('kakao-login')
-  async kakaoLogin(@Req() req): Promise<any> {
+  async kakaoLogin(@Req() req): Promise<SignInResDto> {
    return await this.authService.kakaoLogin(req.headers["authorization"]);
   }
 }

@@ -71,22 +71,20 @@ export class AuthService {
   }
   
   async kakaoLogin(accessToken: string) {
-    console.log(accessToken);
     const url = 'https://kapi.kakao.com/v2/user/me';
     const headers = {
       Authorization: accessToken
     }
-  
+    
     try {
       const kakaoResp = await axios.get(url, { headers });
-      console.log('Kakao Response:', kakaoResp.data);
       const kakaoUserEmail: string = kakaoResp.data.kakao_account.email;
       const kakaoUserNickname: string = kakaoResp.data.properties.nickname;
   
       // TypeORM을 사용하여 데이터베이스에서 사용자를 확인합니다.
-      let user: UserEntity = await this.authRepository.findOneBy({ id: kakaoUserEmail });
-  
+      let user: UserEntity = await this.authRepository.findOne({ where: {id: kakaoUserEmail} });
       if (!user) {
+
         // 데이터베이스에 카카오 유저 정보가 없는 경우
         // 엔티티를 생성 후 user에 할당
         user = new UserEntity();
@@ -97,7 +95,7 @@ export class AuthService {
         user = await this.authRepository.save(user);
 
       } else {
-
+  
       }
       
       // 토큰 발급 및 정보 반환
@@ -121,20 +119,19 @@ export class AuthService {
       const userToken = new UserToken();
       userToken.uuid = user.uuid;
       userToken.refreshToken = newRefreshToken;
-      await this.tokenRepository.save(userToken);
 
-      const kakaouser = {
-        token: {
-          accessToken: acc,
-          refreshToken: ref
-        },
-        user: {
-          id: user.id,
-          nickName: user.nickName,
-        }
-      };
-  
-      return kakaouser;
+      await this.tokenRepository.delete(  {uuid: user.uuid   });
+      await this.tokenRepository.save(userToken);
+      const signInResDto: SignInResDto = {
+        uuid: binToUuid(user.uuid),
+        id: user.id,
+        nickname: user.nickName,
+        createdDT: user.createdDT,
+        accessToken:acc,
+        refreshToken: ref,
+      }
+      console.log(signInResDto);
+      return signInResDto;
     } catch (error) {
       console.log('Kakao API Error:', error);
       throw new Error('카카오 로그인 실패');

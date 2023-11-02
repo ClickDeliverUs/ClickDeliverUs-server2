@@ -3,10 +3,10 @@ import { Expose } from 'class-transformer';
 export class SignInResDto {
   uuid: string;
   id: string;
-  password: string;
-  address: string;
-  tel: string;
-  name: string;
+  password?: string;
+  address?: string;
+  tel?: string;
+  name?: string;
   nickname: string;
   age?: number;
   gender?: number;

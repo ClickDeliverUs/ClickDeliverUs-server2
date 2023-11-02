@@ -4,6 +4,7 @@ import { DataSource, Repository } from 'typeorm';
 import { SignInResDto } from '../dto/signin-res.dto';
 import { uuidToBin, binToUuid } from '../../util/uuid.util';
 import { SignUpReqDto } from '../dto/signup-req.dto';
+import { FindOneOptions } from 'typeorm';
 
 @Injectable()
 // Entity 연결
@@ -75,5 +76,10 @@ export class AuthRepository extends Repository<UserEntity> {
       console.log('DB error ocurred(User finding process): ${id}');
       throw new InternalServerErrorException('DB error ocurred');
     }
+  }
+  async findUserById(id: string): Promise<UserEntity> {
+    const options: FindOneOptions<UserEntity> = 
+    { where: { id } };
+    return this.findOne(options);
   }
 }
