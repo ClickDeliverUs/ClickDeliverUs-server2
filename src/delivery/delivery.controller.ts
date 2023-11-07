@@ -18,13 +18,10 @@ export class DeliveryController {
     switch (deliveryDto.status) {
       case 0:
         return this.deliveryService.assignDelivery(deliveryDto.orderId);
-        break;
       case 1:
         return this.deliveryService.pickupDelivery(deliveryDto.orderId);
-        break;
       case 2:
         return this.deliveryService.completeDelivery(deliveryDto.orderId);
-        break;
       default:
         this.logger.log('An Error ocurred while updating delivery status(Controller)');
         break;
