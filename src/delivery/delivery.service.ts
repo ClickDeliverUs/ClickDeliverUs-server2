@@ -47,6 +47,12 @@ export class DeliveryService {
   }
 
   async findAllDeliveries(): Promise<DeliveryEntity[]> {
-    return this.deliveryRepository.find({ where: { status: 0 } });
-  }
+    return this.deliveryRepository
+      .createQueryBuilder('delivery')
+      .innerJoin('delivery.order', 'order')
+      .innerJoin('order.user', 'user')
+      .where('delivery.status = 0')
+      .addSelect(['order.s_id','order.price', 'user.address'])
+      .getMany();
+  } 
 }
