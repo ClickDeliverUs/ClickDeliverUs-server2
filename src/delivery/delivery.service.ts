@@ -16,11 +16,37 @@ export class DeliveryService {
     const delivery = new DeliveryEntity();
     delivery.orderId = orderId;
     delivery.deliveryPersonId = deliveryPersonId;
-    // may have to set other fields as we progress
+    delivery.status = 0;
     return this.deliveryRepository.save(delivery);
   }
 
+  async updateDeliveryStatus(orderId: string, newStatus: number): Promise<DeliveryEntity> {
+    const delivery = await this.deliveryRepository.findOne({
+      where: { orderId },
+    });
+    if (!delivery) {
+      // 에러 처리
+    }
+    delivery.status = newStatus;
+    return this.deliveryRepository.save(delivery);
+  }
+
+  async assignDelivery(orderId: string): Promise<DeliveryEntity> {
+    // Assigned(1)
+    return this.updateDeliveryStatus(orderId, 1);
+  }
+
+  async pickupDelivery(orderId: string): Promise<DeliveryEntity> {
+    // pickup(2)
+    return this.updateDeliveryStatus(orderId, 2);
+  }
+
+  async completeDelivery(orderId: string): Promise<DeliveryEntity> {
+    // Completed(3)
+    return this.updateDeliveryStatus(orderId, 3);
+  }
+
   async findAllDeliveries(): Promise<DeliveryEntity[]> {
-    return this.deliveryRepository.find();
+    return this.deliveryRepository.find({ where: { status: 0 } });
   }
 }

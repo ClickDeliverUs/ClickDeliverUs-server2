@@ -13,6 +13,10 @@ export class DeliveryEntity {
   @Column()
   deliveryPersonId: string;
 
-  @Column({ default: 'Awaiting' })
-  status: string;
+  @Column({ default: 0 })
+  status: number;
+  // 0: pending
+  // 1: Assigned
+  // 2: pickedUp
+  // 3: Completed
 }

@@ -19,8 +19,7 @@ import { RegenerateTokenDto } from './dto/regenerate-token.dto';
 import axios from 'axios';
 import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from './auth.entity';
-import { uuidToBin, binToUuid} from '../util/uuid.util';
-
+import { uuidToBin, binToUuid } from '../util/uuid.util';
 
 @Injectable()
 export class AuthService {
@@ -30,7 +29,7 @@ export class AuthService {
     private authRepository: AuthRepository,
     private tokenRepository: TokenRepository,
     private jwtUtil: JwtUtil,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   async isDuplicateEmail(id: string): Promise<boolean> {
@@ -69,50 +68,47 @@ export class AuthService {
       throw new Error('회원가입에 실패했습니다.');
     }
   }
-  
+
   async kakaoLogin(accessToken: string) {
     const url = 'https://kapi.kakao.com/v2/user/me';
     const headers = {
-      Authorization: accessToken
-    }
-    
+      Authorization: accessToken,
+    };
+
     try {
       const kakaoResp = await axios.get(url, { headers });
       const kakaoUserEmail: string = kakaoResp.data.kakao_account.email;
       const kakaoUserNickname: string = kakaoResp.data.properties.nickname;
-  
-      // TypeORM을 사용하여 데이터베이스에서 사용자를 확인합니다.
-      let user: UserEntity = await this.authRepository.findOne({ where: {id: kakaoUserEmail} });
-      if (!user) {
 
+      // TypeORM을 사용하여 데이터베이스에서 사용자를 확인합니다.
+      let user: UserEntity = await this.authRepository.findOne({ where: { id: kakaoUserEmail } });
+      if (!user) {
         // 데이터베이스에 카카오 유저 정보가 없는 경우
         // 엔티티를 생성 후 user에 할당
         user = new UserEntity();
         user.uuid = uuidToBin(generateNewUuidV1());
         user.id = kakaoUserEmail;
         user.nickName = kakaoUserNickname;
-  
-        user = await this.authRepository.save(user);
 
+        user = await this.authRepository.save(user);
       } else {
-  
       }
-      
+
       // 토큰 발급 및 정보 반환
       const accessPayload: AccessPayload = {
         uuid: binToUuid(user.uuid),
         id: user.id,
-        name: user.nickName
-      }
-      const acc = this.jwtUtil.generateAccessToken(accessPayload)
-  
+        name: user.nickName,
+      };
+      const acc = this.jwtUtil.generateAccessToken(accessPayload);
+
       const refreshPayload: RefreshPayload = {
         uuid: binToUuid(user.uuid),
         id: user.id,
-      }
-  
-      const ref = this.jwtUtil.generateRefershToken(refreshPayload)
-  
+      };
+
+      const ref = this.jwtUtil.generateRefershToken(refreshPayload);
+
       const newRefreshToken = this.jwtUtil.generateRefershToken(refreshPayload);
 
       // 데이터베이스에 리프레시 토큰 저장 추가
@@ -120,16 +116,16 @@ export class AuthService {
       userToken.uuid = user.uuid;
       userToken.refreshToken = newRefreshToken;
 
-      await this.tokenRepository.delete(  {uuid: user.uuid   });
+      await this.tokenRepository.delete({ uuid: user.uuid });
       await this.tokenRepository.save(userToken);
       const signInResDto: SignInResDto = {
         uuid: binToUuid(user.uuid),
         id: user.id,
         nickname: user.nickName,
         createdDT: user.createdDT,
-        accessToken:acc,
+        accessToken: acc,
         refreshToken: ref,
-      }
+      };
       console.log(signInResDto);
       return signInResDto;
     } catch (error) {
@@ -137,7 +133,7 @@ export class AuthService {
       throw new Error('카카오 로그인 실패');
     }
   }
-  
+
   async signIn(signInReqDto: SignInReqDto): Promise<SignInResDto> {
     const { id, password } = signInReqDto;
 
