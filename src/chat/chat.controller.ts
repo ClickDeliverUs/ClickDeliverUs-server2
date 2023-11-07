@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ChatService } from './chat.service';
+import { CreateRoomDto } from './dto/create-room.dto';
 
 @Controller('chat')
 export class ChatController {
@@ -8,5 +9,11 @@ export class ChatController {
   @Get()
   getAllChatRooms() {
     return this.chatService.getAllChatRooms();
+  }
+
+  @Post('create-room')
+  createChatRoom(@Body() createRoomDto: CreateRoomDto) {
+    const { cid, did } = createRoomDto;
+    this.chatService.createChatRoom(cid, did);
   }
 }
