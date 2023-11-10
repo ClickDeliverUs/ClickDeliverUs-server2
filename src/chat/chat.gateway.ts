@@ -27,21 +27,18 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.connectedClients.delete(client.id);
   }
 
-  @SubscribeMessage('chat')
-  handleMessage(client: Socket, message: string) {
-    //클라이언트가 보낸 메시지를 저장
-    const roomId = 'temp';
-    this.chatService.addChatMessage(roomId, message);
-    //해당 메시지를 모든 클라이언트에 전송
-    this.server.emit('chat', message);
+  @SubscribeMessage('joinRoom')
+  joinRoom(client: Socket, data: { cid: string; did: string }) {
+    const chatRoomId = `${data.cid}-${data.did}`;
+    client.join(chatRoomId);
   }
-  // TODO: roomId 만드는거 구현해야됨 시발
-  @SubscribeMessage('privateMessage')
-  handlePrivateMessage(client: Socket, data: { to: string; message: string }) {
-    const toClient = this.connectedClients.get(data.to);
-    if (toClient) {
-      // 개별 사용자에게 메시지 전송
-      toClient.emit('privateMessage', { from: client.id, message: data.message });
-    }
+
+  @SubscribeMessage('chat')
+  handleMessage(client: Socket, data: { cid: string; did: string; message: string }) {
+    //클라이언트가 보낸 메시지를 저장
+    const chatRoomId = `${data.cid}-${data.did}`;
+    this.chatService.addChatMessage(chatRoomId, data.message);
+    //해당 메시지를 모든 클라이언트에 전송
+    this.server.to(chatRoomId).emit('chat', data.message);
   }
 }

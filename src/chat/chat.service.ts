@@ -16,15 +16,15 @@ export class ChatService {
   // 채팅방을 생성한 후, 해당 채팅방에 고객과 기사가 연결됨
   // 배달 완료 후 expirationTime 이후에 채팅방이 자동으로 제거되어야 함
 
-  addChatMessage(roomId: string, message: string) {
-    if (!this.chatMessages.has(roomId)) {
-      this.chatMessages.set(roomId, { messages: [] });
+  addChatMessage(chatRoomId: string, message: string) {
+    if (!this.chatMessages.has(chatRoomId)) {
+      this.chatMessages.set(chatRoomId, { messages: [] });
     }
-    this.chatMessages.get(roomId).messages.push(message);
+    this.chatMessages.get(chatRoomId).messages.push(message);
   }
 
-  getChatMessages(roomId: string) {
-    return this.chatMessages.get(roomId)?.messages || [];
+  getChatMessages(chatRoomId: string) {
+    return this.chatMessages.get(chatRoomId)?.messages || [];
   }
 
   removeChatRoom(cid: string, did: string) {
