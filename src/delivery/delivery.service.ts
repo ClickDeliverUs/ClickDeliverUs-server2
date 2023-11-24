@@ -52,7 +52,7 @@ export class DeliveryService {
       .innerJoin('delivery.order', 'order')
       .innerJoin('order.user', 'user')
       .where('delivery.status = 0')
-      .addSelect(['order.s_id','order.price', 'user.address'])
+      .addSelect(['order.s_id', 'order.price', 'user.address'])
       .getMany();
-  } 
+  }
 }
