@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Post, Req} from '@nestjs/common';
+import { Body, Controller, Post, Req, Get , Query} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/default-user.dto';
 import { SignUpReqDto } from './dto/signup-req.dto';
@@ -22,5 +22,11 @@ export class AuthController {
   @Post('kakao-login')
   async kakaoLogin(@Req() req): Promise<SignInResDto> {
    return await this.authService.kakaoLogin(req.headers["authorization"]);
+  }
+
+  @Get('check-id')
+  async checkIfIdExists(@Query('id') id: string): Promise<boolean> {
+    const idExists = await this.authService.checkIfIdExists(id);
+    return !idExists; // 반대로 반환 (true면 사용 가능, false면 중복)
   }
 }

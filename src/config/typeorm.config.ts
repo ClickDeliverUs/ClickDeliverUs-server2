@@ -6,9 +6,10 @@ import { Store } from 'src/product/entity/store.entity';
 import { UserToken } from 'src/auth/entity/token.entity';
 import { OrderEntity } from 'src/payment/order.entity';
 import { ProductEntity } from 'src/product/entity/product.entity';
+import { DeliveryEntity } from 'src/delivery/delivery.entity';
 
 
-const isLocal = true;
+const isLocal = false;
 
 export const TypeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -23,7 +24,8 @@ export const TypeOrmConfig: TypeOrmModuleOptions = {
     Store,
     UserToken,
     ProductEntity,
-    OrderEntity
+    OrderEntity,
+    DeliveryEntity
   ],
 };
 

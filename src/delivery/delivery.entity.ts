@@ -1,5 +1,7 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, PrimaryGeneratedColumn , Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { UserEntity } from 'src/auth/auth.entity';
 
+@Entity()
 export class DeliveryEntity {
   @PrimaryGeneratedColumn()
   idx: number;
@@ -10,9 +12,12 @@ export class DeliveryEntity {
   @Column()
   orderId: string;
 
-  @Column()
+  @Column({ default: 0 })
   deliveryPersonId: string;
 
+  @ManyToOne(() => UserEntity, user => user.deliveries)
+  user: UserEntity;
+  
   @Column({ default: 0 })
   status: number;
   // 0: pending

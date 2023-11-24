@@ -28,7 +28,7 @@ export class DeliveryController {
     }
   }
 
-  @Get()
+  @Get('findAll')
   findAll(): Promise<DeliveryEntity[]> {
     return this.deliveryService.findAllDeliveries();
   }

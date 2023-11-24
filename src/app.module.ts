@@ -15,17 +15,18 @@ import { StoreModule } from './stores/store.module';
 import { OrderEntity } from './payment/order.entity';
 import { UserToken } from './auth/entity/token.entity';
 import { PassportModule } from '@nestjs/passport';
-//import { DeliveryModule } from './delivery/delivery.module';
+import { DeliveryModule } from './delivery/delivery.module';
+import { DeliveryEntity } from './delivery/delivery.entity';
 
 @Module({
   imports: [
     AuthModule,
     TypeOrmModule.forRoot(TypeOrmConfig),
-    TypeOrmModule.forFeature([UserEntity, Store, ProductEntity, UserToken, OrderEntity]),
+    TypeOrmModule.forFeature([UserEntity, Store, ProductEntity, UserToken, OrderEntity, DeliveryEntity]),
     ProductsModule,
     StoreModule,
     PaymentModule,
-    //DeliveryModule,
+    DeliveryModule,
     PassportModule,
    
   ],

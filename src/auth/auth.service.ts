@@ -20,6 +20,8 @@ import axios from 'axios';
 import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from './auth.entity';
 import { uuidToBin, binToUuid } from '../util/uuid.util';
+import { Repository } from 'typeorm';
+import { DeliveryEntity } from 'src/delivery/delivery.entity';
 
 @Injectable()
 export class AuthService {
@@ -30,6 +32,7 @@ export class AuthService {
     private tokenRepository: TokenRepository,
     private jwtUtil: JwtUtil,
     private jwtService: JwtService,
+    private readonly userRepository: Repository<UserEntity>,
   ) {}
 
   async isDuplicateEmail(id: string): Promise<boolean> {
@@ -67,6 +70,11 @@ export class AuthService {
 
       throw new Error('회원가입에 실패했습니다.');
     }
+  }
+
+  async checkIfIdExists(id: string): Promise<boolean> {
+    const existingUser = await this.authRepository.findOne({ where: { id  } });
+    return !!existingUser;
   }
 
   async kakaoLogin(accessToken: string) {
@@ -227,5 +235,20 @@ export class AuthService {
     } else {
       this.logger.log(`Invalid access Token payload: ${id}`);
     }
+  }
+
+  async getDeliveryPersonIdByUuid(uuid: string): Promise<string> {
+    // 사용자 UUID를 기반으로 배송 담당자의 ID를 가져오는 로직
+    const user = await this.userRepository.findOne({ where: { uuid: Buffer.from(uuid, 'utf-8') }, relations: ['deliveries'] });
+  
+    if (!user) {
+      // 사용자를 찾지 못한 경우 에러 처리 또는 기본값 반환 등
+      throw new Error('User not found');
+    }
+  
+    // 최신 배송 정보를 가져오거나, 특정 조건에 맞게 처리
+    const latestDelivery = user.deliveries[user.deliveries.length - 1];
+  
+    return latestDelivery ? latestDelivery.deliveryPersonId : null;
   }
 }
