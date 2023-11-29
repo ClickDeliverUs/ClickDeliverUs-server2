@@ -3,6 +3,7 @@ import { OrderInfoDto } from './dto/order_info.dto';
 import { OrderEntity } from './order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderRepository } from './order.repository';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class PaymentService {
@@ -11,14 +12,19 @@ export class PaymentService {
   constructor(
     @InjectRepository(OrderEntity)
     private readonly orderRepository: OrderRepository,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async saveOrder(orderInfoDto: OrderInfoDto): Promise<OrderEntity> {
     try {
       const order = this.mapDtoToEntity(orderInfoDto);
 
-      //주문 정보를 데이터베이스에 저장
+      // Save order info to DB
       const savedOrder = await this.orderRepository.save(order);
+
+      // Event after saving order info to DB
+      this.eventEmitter.emit('order.completed', savedOrder);
+
       return savedOrder;
     } catch (error) {
       this.logger.log(`Error in PaymentServicce.saveOrder: ${error}`);

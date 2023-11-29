@@ -5,20 +5,42 @@ import { Repository } from 'typeorm';
 import { DeliveryDto } from './dto/delivery.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { UserEntity } from 'src/auth/auth.entity';
+import { PaymentService } from 'src/payment/payment.service';
+import { OrderEntity } from 'src/payment/order.entity';
 
 @Injectable()
 export class DeliveryService {
   constructor(
+    private readonly paymentService: PaymentService,
     @InjectRepository(DeliveryEntity)
     private readonly deliveryRepository: Repository<DeliveryEntity>,
     private readonly authService: AuthService,
     private readonly userEntity: UserEntity
-    ) {}
+  ) {
+    this.listenToPaymentEvents();
+  }
+
+  private listenToPaymentEvents() {
+    this.paymentService.eventEmitter.on('order.completed', async (order: OrderEntity) => {
+      await this.handleOrder(order);
+    });
+  }
+
+  private handleOrder(order: OrderEntity) {
+    const { address, requests, parcels, purchaseId } = this.extractOrderData(order);
+  }
+
+  private extractOrderData(order: OrderEntity) {
+    const { address, requests, parcels, purchaseId } = order;
+    return { address, requests, parcels, purchaseId };
+  }
 
   async createDelivery(deliveryDto: DeliveryDto): Promise<DeliveryEntity> {
-    const { orderId,  } = deliveryDto;
+    const { orderId } = deliveryDto;
 
-    const deliveryPersonId = await this.authService.getDeliveryPersonIdByUuid(deliveryDto.deliveryPersonId);
+    const deliveryPersonId = await this.authService.getDeliveryPersonIdByUuid(
+      deliveryDto.deliveryPersonId,
+    );
 
     const delivery = new DeliveryEntity();
     delivery.orderId = orderId;
@@ -28,7 +50,11 @@ export class DeliveryService {
     return this.deliveryRepository.save(delivery);
   }
 
-  async updateDeliveryStatus(orderId: string, newStatus: number, deliveryPersonId: string): Promise<DeliveryEntity> {
+  async updateDeliveryStatus(
+    orderId: string,
+    newStatus: number,
+    deliveryPersonId: string,
+  ): Promise<DeliveryEntity> {
     const delivery = await this.deliveryRepository.findOne({
       where: { orderId },
     });
@@ -61,14 +87,13 @@ export class DeliveryService {
   }
 
   async findAllDeliveries(): Promise<DeliveryEntity[]> {
-    return this.deliveryRepository
-      .createQueryBuilder('delivery')
-      // .innerJoin('delivery.order', 'order')
-      // .innerJoin('order.user', 'user')
-      // .where('delivery.status = 0')
-      // .addSelect(['order.s_id', 'order.price', 'user.address'])
-      .getMany();
-
-      //편의점정보랑 유저정보, 유저주소, 상품가격
+    return (
+      this.deliveryRepository
+        .createQueryBuilder('delivery')
+        // .innerJoin('delivery.order', 'order')
+        // .innerJoin('order.user', 'user')
+        // .where('delivery.status = 0')
+        // .addSelect(['order.s_id', 'order.price', 'user.address'])
+        .getMany()
   }
 }
