@@ -15,7 +15,7 @@ export class DeliveryService {
     @InjectRepository(DeliveryEntity)
     private readonly deliveryRepository: Repository<DeliveryEntity>,
     private readonly authService: AuthService,
-    private readonly userEntity: UserEntity
+    private readonly userEntity: UserEntity,
   ) {
     this.listenToPaymentEvents();
   }
@@ -28,6 +28,7 @@ export class DeliveryService {
 
   private handleOrder(order: OrderEntity) {
     const { address, requests, parcels, purchaseId } = this.extractOrderData(order);
+    await this.createDelivery(address, requests, parcels, purchaseId);
   }
 
   private extractOrderData(order: OrderEntity) {
@@ -95,5 +96,6 @@ export class DeliveryService {
         // .where('delivery.status = 0')
         // .addSelect(['order.s_id', 'order.price', 'user.address'])
         .getMany()
+    );
   }
 }
