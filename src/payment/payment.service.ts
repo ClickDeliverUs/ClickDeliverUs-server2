@@ -12,7 +12,7 @@ export class PaymentService {
   constructor(
     @InjectRepository(OrderEntity)
     private readonly orderRepository: OrderRepository,
-    private readonly eventEmitter: EventEmitter2,
+    readonly eventEmitter: EventEmitter2,
   ) {}
 
   async saveOrder(orderInfoDto: OrderInfoDto): Promise<OrderEntity> {

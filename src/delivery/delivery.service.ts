@@ -26,19 +26,38 @@ export class DeliveryService {
     });
   }
 
-  private handleOrder(order: OrderEntity) {
-    const { address, requests, parcels, purchaseId } = this.extractOrderData(order);
-    await this.createDelivery(address, requests, parcels, purchaseId);
+  private async handleOrder(order: OrderEntity) {
+    const deliveryDto = this.extractOrderData(order);
+    await this.createDelivery(deliveryDto);
   }
 
-  private extractOrderData(order: OrderEntity) {
-    const { address, requests, parcels, purchaseId } = order;
-    return { address, requests, parcels, purchaseId };
+  private extractOrderData(order: OrderEntity): DeliveryDto {
+    const {
+      id,
+      address,
+      requests,
+      parcels,
+      uuid_order: orderId,
+      uuid_rider: deliveryPersonId,
+    } = order;
+    return { id, address, requests, parcels, orderId, deliveryPersonId, status: 0 };
   }
 
-  async createDelivery(deliveryDto: DeliveryDto): Promise<DeliveryEntity> {
-    const { orderId } = deliveryDto;
+  async createDelivery(data: Partial<DeliveryDto>): Promise<DeliveryEntity> {
+    const { orderId } = data;
 
+    const existingDelivery = await this.deliveryRepository.findOne({ orderId });
+
+    if (existingDelivery) {
+      // If it already exists, update
+      Object.assign(existingDelivery, data);
+      return this.deliveryRepository.save(existingDelivery);
+    } else {
+      // If it doen not exists, create
+      const delivery = new DeliveryEntity();
+      Object.assign(delivery, data);
+    }
+    /*
     const deliveryPersonId = await this.authService.getDeliveryPersonIdByUuid(
       deliveryDto.deliveryPersonId,
     );
@@ -49,6 +68,7 @@ export class DeliveryService {
     delivery.status = 0;
 
     return this.deliveryRepository.save(delivery);
+    */
   }
 
   async updateDeliveryStatus(
