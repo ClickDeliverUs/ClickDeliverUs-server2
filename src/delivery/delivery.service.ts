@@ -7,6 +7,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { UserEntity } from 'src/auth/auth.entity';
 import { PaymentService } from 'src/payment/payment.service';
 import { OrderEntity } from 'src/payment/order.entity';
+import { EventEmitterProvider } from 'src/payment/event-emitter.provider';
 
 @Injectable()
 export class DeliveryService {
@@ -21,9 +22,12 @@ export class DeliveryService {
   }
 
   private listenToPaymentEvents() {
-    this.paymentService.eventEmitter.on('order.completed', async (order: OrderEntity) => {
-      await this.handleOrder(order);
-    });
+    EventEmitterProvider.getInstance().eventEmitter.on(
+      'order.completed',
+      async (order: OrderEntity) => {
+        await this.handleOrder(order);
+      },
+    );
   }
 
   private async handleOrder(order: OrderEntity) {

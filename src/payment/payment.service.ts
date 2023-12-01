@@ -13,12 +13,7 @@ export class PaymentService {
   constructor(
     @InjectRepository(OrderEntity)
     private readonly orderRepository: OrderRepository,
-    private readonly eventEmitterProvider: EventEmitterProvider,
   ) {}
-
-  get eventEmitter(): EventEmitter2 {
-    return this.eventEmitterProvider.eventEmitter;
-  }
 
   async saveOrder(orderInfoDto: OrderInfoDto): Promise<OrderEntity> {
     try {
@@ -28,7 +23,7 @@ export class PaymentService {
       const savedOrder = await this.orderRepository.save(order);
 
       // Event after saving order info to DB
-      this.eventEmitter.emit('order.completed', savedOrder);
+      EventEmitterProvider.getInstance().eventEmitter.emit('order.completed', savedOrder);
 
       return savedOrder;
     } catch (error) {
