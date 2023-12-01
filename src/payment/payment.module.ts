@@ -9,7 +9,7 @@ import { EventEmitterProvider } from './event-emitter.provider';
 
 @Module({
   imports: [TypeOrmModule.forFeature([OrderEntity]), EventEmitter2],
-  providers: [PaymentService, OrderRepository, EventEmitter2, EventEmitterProvider],
+  providers: [PaymentService, OrderRepository, EventEmitter2],
   controllers: [PaymentController],
   exports: [PaymentService, EventEmitterProvider],
 })
