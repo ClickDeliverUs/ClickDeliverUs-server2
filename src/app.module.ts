@@ -17,6 +17,7 @@ import { UserToken } from './auth/entity/token.entity';
 import { PassportModule } from '@nestjs/passport';
 import { DeliveryModule } from './delivery/delivery.module';
 import { DeliveryEntity } from './delivery/delivery.entity';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { DeliveryEntity } from './delivery/delivery.entity';
     PaymentModule,
     DeliveryModule,
     PassportModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService, ChatGateway, ChatService],
