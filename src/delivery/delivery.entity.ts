@@ -31,7 +31,6 @@ export class DeliveryEntity {
   @ManyToOne(() => OrderEntity, order => order.delivery)  // 추가된 부분
   order: OrderEntity;
   
-
   @Column({ default: 0 })
   status: number;
   // 0: pending

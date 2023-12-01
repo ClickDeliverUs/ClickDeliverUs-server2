@@ -8,7 +8,7 @@ import { OrderEntity } from 'src/payment/order.entity';
 import { ProductEntity } from 'src/product/entity/product.entity';
 import { DeliveryEntity } from 'src/delivery/delivery.entity';
 
-const isLocal = true;
+const isLocal = false;
 
 export const TypeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',

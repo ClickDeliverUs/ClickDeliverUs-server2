@@ -5,13 +5,10 @@ import { Repository } from 'typeorm';
 import { DeliveryDto } from './dto/delivery.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { UserEntity } from 'src/auth/auth.entity';
-<<<<<<< HEAD
-import { OrderDto } from 'src/payment/dto/order.dto';
-=======
 import { PaymentService } from 'src/payment/payment.service';
 import { OrderEntity } from 'src/payment/order.entity';
 import { EventEmitterProvider } from 'src/payment/event-emitter.provider';
->>>>>>> 22489a5c599fa04b277cfeb4fbbcb326e6d57e0f
+
 
 @Injectable()
 export class DeliveryService {
@@ -21,14 +18,10 @@ export class DeliveryService {
     private readonly deliveryRepository: Repository<DeliveryEntity>,
     private readonly authService: AuthService,
     private readonly userEntity: UserEntity,
-  ) {
+    ) {
     this.listenToPaymentEvents();
   }
 
-<<<<<<< HEAD
-  async createDelivery(deliveryDto: DeliveryDto): Promise<DeliveryEntity> {
-    const { orderId } = deliveryDto;
-=======
   private listenToPaymentEvents() {
     EventEmitterProvider.getInstance().eventEmitter.on(
       'order.completed',
@@ -36,14 +29,12 @@ export class DeliveryService {
         await this.handleOrder(order);
       },
     );
-  }
->>>>>>> 22489a5c599fa04b277cfeb4fbbcb326e6d57e0f
-
+  } 
+  
   private async handleOrder(order: OrderEntity) {
     const deliveryDto = this.extractOrderData(order);
     await this.createDelivery(deliveryDto);
   }
-
   private extractOrderData(order: OrderEntity): DeliveryDto {
     const { id, address, requests, parcels, order_id: orderId } = order;
     return { id, address, requests, parcels, orderId, status: 0 };
@@ -74,7 +65,7 @@ export class DeliveryService {
     delivery.status = 0;
 
     return this.deliveryRepository.save(delivery);
-    */
+  */
   }
 
   async updateDeliveryStatus(
@@ -114,24 +105,13 @@ export class DeliveryService {
   }
 
   async findAllDeliveries(): Promise<DeliveryEntity[]> {
-<<<<<<< HEAD
     return this.deliveryRepository
       .createQueryBuilder('delivery')
       .innerJoinAndSelect('delivery.order', 'order')
       .where('delivery.status = 0')
       .select(['delivery', 'order.order_id', 'order.s_id', 'order.price','order.order_name'])
       .getMany();
-=======
-    return (
-      this.deliveryRepository
-        .createQueryBuilder('delivery')
-        // .innerJoin('delivery.order', 'order')
-        // .innerJoin('order.user', 'user')
-        // .where('delivery.status = 0')
-        // .addSelect(['order.s_id', 'order.price', 'user.address'])
-        .getMany()
-    );
->>>>>>> 22489a5c599fa04b277cfeb4fbbcb326e6d57e0f
+ 
   }
   
 }
