@@ -5,11 +5,12 @@ import { OrderRepository } from './order.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrderEntity } from './order.entity';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { EventEmitterProvider } from './event-emitter.provider';
 
 @Module({
   imports: [TypeOrmModule.forFeature([OrderEntity]), EventEmitter2],
-  providers: [PaymentService, OrderRepository, EventEmitter2],
+  providers: [PaymentService, OrderRepository, EventEmitter2, EventEmitterProvider],
   controllers: [PaymentController],
-  exports: [PaymentService],
+  exports: [PaymentService, EventEmitterProvider],
 })
 export class PaymentModule {}
