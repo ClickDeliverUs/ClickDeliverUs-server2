@@ -12,7 +12,6 @@ import { Repository } from 'typeorm';
 import { AuthModule } from 'src/auth/auth.module';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
-import { EventEmitterProvider } from 'src/payment/event-emitter.provider';
 
 @Module({
   imports: [

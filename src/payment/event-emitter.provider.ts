@@ -3,7 +3,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class EventEmitterProvider {
-  private static instance: EventEmitterProvider;
+  private static instance: EventEmitterProvider = new EventEmitterProvider();
   eventEmitter: EventEmitter2;
 
   constructor() {
@@ -11,9 +11,6 @@ export class EventEmitterProvider {
   }
 
   static getInstance(): EventEmitterProvider {
-    if (!EventEmitterProvider) {
-      EventEmitterProvider.instance = new EventEmitterProvider();
-    }
-    return EventEmitterProvider.instance;
+    return this.instance;
   }
 }
