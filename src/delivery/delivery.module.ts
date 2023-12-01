@@ -28,15 +28,7 @@ import { EventEmitterProvider } from 'src/payment/event-emitter.provider';
     AuthModule,
   ],
   controllers: [DeliveryController],
-  providers: [
-    DeliveryService,
-    AuthService,
-    UserEntity,
-    JwtUtil,
-    JwtService,
-    Repository,
-    EventEmitterProvider,
-  ],
+  providers: [DeliveryService, AuthService, UserEntity, JwtUtil, JwtService, Repository],
   exports: [DeliveryService],
 })
 export class DeliveryModule {}
