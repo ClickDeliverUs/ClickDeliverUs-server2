@@ -3,7 +3,6 @@ import { OrderInfoDto } from './dto/order_info.dto';
 import { OrderEntity } from './order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderRepository } from './order.repository';
-import { EventEmitter2 } from '@nestjs/event-emitter';
 import { EventEmitterProvider } from './event-emitter.provider';
 
 @Injectable()
