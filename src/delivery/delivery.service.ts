@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { DeliveryDto } from './dto/delivery.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { UserEntity } from 'src/auth/auth.entity';
+import { OrderDto } from 'src/payment/dto/order.dto';
 
 @Injectable()
 export class DeliveryService {
@@ -16,7 +17,7 @@ export class DeliveryService {
     ) {}
 
   async createDelivery(deliveryDto: DeliveryDto): Promise<DeliveryEntity> {
-    const { orderId,  } = deliveryDto;
+    const { orderId } = deliveryDto;
 
     const deliveryPersonId = await this.authService.getDeliveryPersonIdByUuid(deliveryDto.deliveryPersonId);
 
@@ -42,8 +43,8 @@ export class DeliveryService {
     return this.deliveryRepository.save(delivery);
   }
 
-  async assignDelivery(orderId: string): Promise<DeliveryEntity> {
-    //실제 사용자 UUID를 어떻게 할지 더 고민해야함
+  async assignDelivery(orderId: string,): Promise<DeliveryEntity> {
+  
     const userUuid = this.userEntity.uuid.toString('utf-8');
     const deliveryPersonId = await this.authService.getDeliveryPersonIdByUuid(userUuid);
     // Assigned(1)
@@ -63,12 +64,10 @@ export class DeliveryService {
   async findAllDeliveries(): Promise<DeliveryEntity[]> {
     return this.deliveryRepository
       .createQueryBuilder('delivery')
-      // .innerJoin('delivery.order', 'order')
-      // .innerJoin('order.user', 'user')
-      // .where('delivery.status = 0')
-      // .addSelect(['order.s_id', 'order.price', 'user.address'])
+      .innerJoinAndSelect('delivery.order', 'order')
+      .where('delivery.status = 0')
+      .select(['delivery', 'order.order_id', 'order.s_id', 'order.price','order.order_name'])
       .getMany();
-
-      //편의점정보랑 유저정보, 유저주소, 상품가격
   }
+  
 }

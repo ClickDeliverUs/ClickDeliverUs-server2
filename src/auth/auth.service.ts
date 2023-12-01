@@ -21,7 +21,6 @@ import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from './auth.entity';
 import { uuidToBin, binToUuid } from '../util/uuid.util';
 import { Repository } from 'typeorm';
-import { DeliveryEntity } from 'src/delivery/delivery.entity';
 
 @Injectable()
 export class AuthService {
@@ -33,7 +32,7 @@ export class AuthService {
     private jwtUtil: JwtUtil,
     private jwtService: JwtService,
     private readonly userRepository: Repository<UserEntity>,
-  ) {}
+    ) {}
 
   async isDuplicateEmail(id: string): Promise<boolean> {
     const user: SignInResDto = await this.authRepository.findUser(id);

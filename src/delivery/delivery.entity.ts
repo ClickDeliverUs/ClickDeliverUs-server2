@@ -1,5 +1,6 @@
-import { Column, PrimaryGeneratedColumn , Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, PrimaryGeneratedColumn , Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { UserEntity } from 'src/auth/auth.entity';
+import { OrderEntity } from 'src/payment/order.entity';
 
 @Entity()
 export class DeliveryEntity {
@@ -17,6 +18,9 @@ export class DeliveryEntity {
 
   @ManyToOne(() => UserEntity, user => user.deliveries)
   user: UserEntity;
+  
+  @ManyToOne(() => OrderEntity, order => order.delivery)  // 추가된 부분
+  order: OrderEntity;
   
   @Column({ default: 0 })
   status: number;

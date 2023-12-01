@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn , JoinColumn, OneToMany,OneToOne} from 'typeorm';
+import { DeliveryEntity } from 'src/delivery/delivery.entity';
 
 @Entity()
 export class OrderEntity {
@@ -61,4 +62,7 @@ export class OrderEntity {
 
   @Column('json')
   card_data: Buffer;
+
+  @OneToMany(() => DeliveryEntity, delivery => delivery.order)
+  delivery: DeliveryEntity[];
 }
