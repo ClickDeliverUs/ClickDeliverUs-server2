@@ -7,16 +7,22 @@ export class OrderEntity {
   idx: number;
 
   @Column()
+  id: string;
+
+  @Column()
+  address: string;
+
+  @Column()
+  requests: string;
+
+  @Column('json')
+  parcels: Buffer;
+
+  @Column()
   order_id: string;
 
   @Column()
   receipt_id: string;
-
-  @Column()
-  uuid_order: Buffer;
-
-  @Column()
-  uuid_rider: Buffer;
 
   @Column()
   s_id: Buffer;

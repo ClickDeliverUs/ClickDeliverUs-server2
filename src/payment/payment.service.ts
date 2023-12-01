@@ -3,6 +3,7 @@ import { OrderInfoDto } from './dto/order_info.dto';
 import { OrderEntity } from './order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderRepository } from './order.repository';
+import { EventEmitterProvider } from './event-emitter.provider';
 
 @Injectable()
 export class PaymentService {
@@ -17,8 +18,12 @@ export class PaymentService {
     try {
       const order = this.mapDtoToEntity(orderInfoDto);
 
-      //주문 정보를 데이터베이스에 저장
+      // Save order info to DB
       const savedOrder = await this.orderRepository.save(order);
+
+      // Event after saving order info to DB
+      EventEmitterProvider.getInstance().eventEmitter.emit('order.completed', savedOrder);
+
       return savedOrder;
     } catch (error) {
       this.logger.log(`Error in PaymentServicce.saveOrder: ${error}`);
@@ -31,17 +36,19 @@ export class PaymentService {
       const savedOrder = this.mapEntityToDto(order);
       return savedOrder;
     } catch (error) {
-      this.logger.log(`Error in PaymentServicce.fetchOrder: ${error}`);
+      this.logger.log(`Error in PaymentService.fetchOrder: ${error}`);
       throw new Error(`Failed to retrieve order: ${error.message}`);
     }
   }
 
   private mapDtoToEntity(orderInfoDto: OrderInfoDto): OrderEntity {
     const order = new OrderEntity();
+    order.id = orderInfoDto.id;
+    order.address = orderInfoDto.address;
+    order.requests = orderInfoDto.requests;
+    order.parcels = orderInfoDto.parcels;
     order.order_id = orderInfoDto.order_id;
     order.receipt_id = orderInfoDto.receipt_id;
-    order.uuid_order = orderInfoDto.uuid_order;
-    order.uuid_rider = orderInfoDto.uuid_rider;
     order.s_id = orderInfoDto.s_id;
     order.price = orderInfoDto.price;
     order.cancelled_price = orderInfoDto.cancelled_price;
@@ -63,10 +70,12 @@ export class PaymentService {
 
   private mapEntityToDto(order: OrderEntity): OrderInfoDto {
     const orderInfoDto = new OrderInfoDto(
+      order.id,
+      order.address,
+      order.requests,
+      order.parcels,
       order.order_id,
       order.receipt_id,
-      order.uuid_order,
-      order.uuid_rider,
       order.s_id,
       order.price,
       order.cancelled_price,

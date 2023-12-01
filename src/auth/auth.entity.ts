@@ -1,7 +1,6 @@
 import { BaseEntity, Column, Entity, Index, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { DeliveryEntity } from 'src/delivery/delivery.entity';
 
-
 @Entity()
 export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
@@ -44,6 +43,6 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'date', nullable: false })
   createdDT?: Date;
 
-  @OneToMany(() => DeliveryEntity, delivery => delivery.user)
+  @OneToMany(() => DeliveryEntity, (delivery) => delivery.user)
   deliveries: DeliveryEntity[];
 }

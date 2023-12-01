@@ -72,7 +72,7 @@ export class AuthService {
   }
 
   async checkIfIdExists(id: string): Promise<boolean> {
-    const existingUser = await this.authRepository.findOne({ where: { id  } });
+    const existingUser = await this.authRepository.findOne({ where: { id } });
     return !!existingUser;
   }
 
@@ -238,16 +238,19 @@ export class AuthService {
 
   async getDeliveryPersonIdByUuid(uuid: string): Promise<string> {
     // 사용자 UUID를 기반으로 배송 담당자의 ID를 가져오는 로직
-    const user = await this.userRepository.findOne({ where: { uuid: Buffer.from(uuid, 'utf-8') }, relations: ['deliveries'] });
-  
+    const user = await this.userRepository.findOne({
+      where: { uuid: Buffer.from(uuid, 'utf-8') },
+      relations: ['deliveries'],
+    });
+
     if (!user) {
       // 사용자를 찾지 못한 경우 에러 처리 또는 기본값 반환 등
       throw new Error('User not found');
     }
-  
+
     // 최신 배송 정보를 가져오거나, 특정 조건에 맞게 처리
     const latestDelivery = user.deliveries[user.deliveries.length - 1];
-  
+
     return latestDelivery ? latestDelivery.deliveryPersonId : null;
   }
 }

@@ -1,11 +1,13 @@
 export class DeliveryDto {
-  orderId: string;
-  deliveryPersonId: string;
-  status: number;
+  id?: string;
+  address?: string;
+  requests?: string;
+  parcels?: any;
+  orderId?: string;
+  deliveryPersonId?: string;
+  status?: number;
 
-  constructor(orderId: string, deliveryPersonId: string, status: number) {
-    this.orderId = orderId;
-    this.deliveryPersonId = deliveryPersonId;
-    this.status = status;
+  constructor(data: Partial<DeliveryDto>) {
+    Object.assign(this, data);
   }
 }

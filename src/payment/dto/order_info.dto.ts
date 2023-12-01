@@ -1,8 +1,10 @@
 export class OrderInfoDto {
+  id: string;
+  address: string;
+  requests: string;
+  parcels: Buffer;
   order_id: string;
   receipt_id: string;
-  uuid_order: Buffer;
-  uuid_rider: Buffer;
   s_id: Buffer;
   price: number;
   cancelled_price: number;
@@ -20,10 +22,12 @@ export class OrderInfoDto {
   card_data: Buffer;
 
   constructor(
+    id: string,
+    address: string,
+    requests: string,
+    parcels: Buffer,
     order_id: string,
     reciept_id: string,
-    uuid_order: Buffer,
-    uuid_rider: Buffer,
     s_id: Buffer,
     price: number,
     cancelled_price: number,
@@ -40,10 +44,12 @@ export class OrderInfoDto {
     status: number,
     card_data: Buffer,
   ) {
+    this.id = id;
+    this.address = address;
+    this.requests = requests;
+    this.parcels = parcels;
     this.order_id = order_id;
     this.receipt_id = reciept_id;
-    this.uuid_order = uuid_order;
-    this.uuid_rider = uuid_rider;
     this.s_id = s_id;
     this.price = price;
     this.cancelled_price = cancelled_price;
