@@ -8,12 +8,16 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 @Injectable()
 export class PaymentService {
   private logger: Logger = new Logger(PaymentService.name);
+  private readonly _eventEmitter: EventEmitter2 = new EventEmitter2();
 
   constructor(
     @InjectRepository(OrderEntity)
     private readonly orderRepository: OrderRepository,
-    readonly eventEmitter: EventEmitter2,
   ) {}
+
+  get eventEmitter(): EventEmitter2 {
+    return this._eventEmitter;
+  }
 
   async saveOrder(orderInfoDto: OrderInfoDto): Promise<OrderEntity> {
     try {
