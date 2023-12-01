@@ -15,7 +15,7 @@ export class ChatService {
     this.logger.log(
       `Chatroom Successfully created. chatRoomId: ${chatRoomId}, cid: ${cid}, did: ${did}`,
     );
-    return { chatRoomId };
+    return chatRoomId;
   }
   // TODO: 추후에 배달 기능 구현 후 해당 부분 수정 필요
   // 채팅방을 생성한 후, 해당 채팅방에 고객과 기사가 연결됨

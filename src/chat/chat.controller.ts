@@ -14,6 +14,6 @@ export class ChatController {
   @Post('create-room')
   createChatRoom(@Body() createRoomDto: CreateRoomDto) {
     const { cid, did } = createRoomDto;
-    this.chatService.createChatRoom(cid, did);
+    return this.chatService.createChatRoom(cid, did);
   }
 }
