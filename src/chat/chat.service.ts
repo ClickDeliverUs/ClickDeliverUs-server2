@@ -47,7 +47,8 @@ export class ChatService {
 
   getAllChatRooms() {
     try {
-      return this.chatRooms;
+      //return this.chatRooms.keys;
+      return Array.from(this.chatRooms.keys());
     } catch (err) {
       this.logger.log(`An error ocurred while getting chatrroms info`);
       throw new BadRequestException(`An error ocurred while getting chatrroms info`);
