@@ -10,7 +10,7 @@ import { ChatService } from './chat.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-@WebSocketGateway()
+@WebSocketGateway({ namespace: '/chat' })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
