@@ -37,3 +37,7 @@ validationPipe 사용하는 부분 오류나서 일단 주석처리함
 > deliveryService 버그잡아야함.
 > orderEntity도 파라미터 맞춰서 수정필요.
 > 또한 추가로 작업한 파라미터에서 원래 있던거랑 중복되는거 있어서 이거도 맞춰서 노션에 반영함.
+---
+> **12.1 11:02 UPDATE**
+> delivery, payment는 완성,
+> Auth쪽에서 원인 불명의 오류 발생. 확인중

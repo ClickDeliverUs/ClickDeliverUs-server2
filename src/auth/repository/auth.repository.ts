@@ -78,8 +78,7 @@ export class AuthRepository extends Repository<UserEntity> {
     }
   }
   async findUserById(id: string): Promise<UserEntity> {
-    const options: FindOneOptions<UserEntity> = 
-    { where: { id } };
+    const options: FindOneOptions<UserEntity> = { where: { id } };
     return this.findOne(options);
   }
 }

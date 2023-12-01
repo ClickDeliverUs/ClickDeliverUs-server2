@@ -10,5 +10,6 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
   imports: [TypeOrmModule.forFeature([OrderEntity])],
   providers: [PaymentService, OrderRepository, EventEmitter2],
   controllers: [PaymentController],
+  exports: [PaymentService],
 })
 export class PaymentModule {}
