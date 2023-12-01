@@ -22,13 +22,19 @@ import { DeliveryEntity } from './delivery/delivery.entity';
   imports: [
     AuthModule,
     TypeOrmModule.forRoot(TypeOrmConfig),
-    TypeOrmModule.forFeature([UserEntity, Store, ProductEntity, UserToken, OrderEntity, DeliveryEntity]),
+    TypeOrmModule.forFeature([
+      UserEntity,
+      Store,
+      ProductEntity,
+      UserToken,
+      OrderEntity,
+      DeliveryEntity,
+    ]),
     ProductsModule,
     StoreModule,
     PaymentModule,
     DeliveryModule,
     PassportModule,
-   
   ],
   controllers: [AppController],
   providers: [AppService, ChatGateway, ChatService],

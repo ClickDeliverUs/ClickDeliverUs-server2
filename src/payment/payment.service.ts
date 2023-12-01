@@ -37,17 +37,19 @@ export class PaymentService {
       const savedOrder = this.mapEntityToDto(order);
       return savedOrder;
     } catch (error) {
-      this.logger.log(`Error in PaymentServicce.fetchOrder: ${error}`);
+      this.logger.log(`Error in PaymentService.fetchOrder: ${error}`);
       throw new Error(`Failed to retrieve order: ${error.message}`);
     }
   }
 
   private mapDtoToEntity(orderInfoDto: OrderInfoDto): OrderEntity {
     const order = new OrderEntity();
+    order.id = orderInfoDto.id;
+    order.address = orderInfoDto.address;
+    order.requests = orderInfoDto.requests;
+    order.parcels = orderInfoDto.parcels;
     order.order_id = orderInfoDto.order_id;
     order.receipt_id = orderInfoDto.receipt_id;
-    order.uuid_order = orderInfoDto.uuid_order;
-    order.uuid_rider = orderInfoDto.uuid_rider;
     order.s_id = orderInfoDto.s_id;
     order.price = orderInfoDto.price;
     order.cancelled_price = orderInfoDto.cancelled_price;
@@ -69,10 +71,12 @@ export class PaymentService {
 
   private mapEntityToDto(order: OrderEntity): OrderInfoDto {
     const orderInfoDto = new OrderInfoDto(
+      order.id,
+      order.address,
+      order.requests,
+      order.parcels,
       order.order_id,
       order.receipt_id,
-      order.uuid_order,
-      order.uuid_rider,
       order.s_id,
       order.price,
       order.cancelled_price,

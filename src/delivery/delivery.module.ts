@@ -3,11 +3,10 @@ import { DeliveryController } from './delivery.controller';
 import { DeliveryService } from './delivery.service';
 import { DeliveryEntity } from './delivery.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PaymentModule } from 'src/payment/payment.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([DeliveryEntity]),
-  ],
+  imports: [TypeOrmModule.forFeature([DeliveryEntity]), PaymentModule],
   controllers: [DeliveryController],
   providers: [DeliveryService],
 })

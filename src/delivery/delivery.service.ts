@@ -32,21 +32,14 @@ export class DeliveryService {
   }
 
   private extractOrderData(order: OrderEntity): DeliveryDto {
-    const {
-      id,
-      address,
-      requests,
-      parcels,
-      uuid_order: orderId,
-      uuid_rider: deliveryPersonId,
-    } = order;
-    return { id, address, requests, parcels, orderId, deliveryPersonId, status: 0 };
+    const { id, address, requests, parcels, order_id: orderId } = order;
+    return { id, address, requests, parcels, orderId, status: 0 };
   }
 
   async createDelivery(data: Partial<DeliveryDto>): Promise<DeliveryEntity> {
     const { orderId } = data;
 
-    const existingDelivery = await this.deliveryRepository.findOne({ orderId });
+    const existingDelivery = await this.deliveryRepository.findOne({ where: { orderId } });
 
     if (existingDelivery) {
       // If it already exists, update

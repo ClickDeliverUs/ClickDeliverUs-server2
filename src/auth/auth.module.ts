@@ -11,5 +11,6 @@ import { TokenRepository } from './repository/token.repository';
   imports: [TypeOrmModule.forFeature([AuthRepository]), JwtModule.register({})],
   controllers: [AuthController],
   providers: [AuthService, AuthRepository, JwtUtil, TokenRepository],
+  exports: [JwtUtil],
 })
 export class AuthModule {}

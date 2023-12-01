@@ -16,7 +16,7 @@ export class DeliveryEntity {
   requests: string;
 
   @Column('json')
-  parcels: buffer;
+  parcels: Buffer;
 
   @Column()
   orderId: string;
