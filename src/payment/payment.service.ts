@@ -64,7 +64,19 @@ export class PaymentService {
     order.reciept_url = orderInfoDto.receipt_url;
     order.status = orderInfoDto.status;
     order.card_data = orderInfoDto.card_data;
+    order.csv_name = orderInfoDto.csv_name;
 
+    switch (orderInfoDto.s_id) {
+      case 1:
+        order.csv_name = 'CU';
+        break;
+      case 2:
+        order.csv_name = 'GS25';
+        break;
+      case 3:
+        order.csv_name = '세븐일레븐';
+        break;
+    }
     return order;
   }
 
@@ -91,6 +103,7 @@ export class PaymentService {
       order.reciept_url,
       order.status,
       order.card_data,
+      order.csv_name,
     );
     return orderInfoDto;
   }

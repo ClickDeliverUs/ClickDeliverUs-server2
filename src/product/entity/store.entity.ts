@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { OrderEntity } from 'src/payment/order.entity';
 
 @Entity()
 export class Store {

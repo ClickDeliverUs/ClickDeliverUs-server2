@@ -109,7 +109,7 @@ export class DeliveryService {
       .createQueryBuilder('delivery')
       .innerJoinAndSelect('delivery.order', 'order')
       .where('delivery.status = 0')
-      .select(['delivery', 'order.order_id', 'order.s_id', 'order.price','order.order_name'])
+      .select(['delivery','order.s_id','order.csv_name'])
       .getMany();
  
   }

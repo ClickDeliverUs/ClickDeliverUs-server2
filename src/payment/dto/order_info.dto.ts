@@ -5,7 +5,7 @@ export class OrderInfoDto {
   parcels: Buffer;
   order_id: string;
   receipt_id: string;
-  s_id: Buffer;
+  s_id: number;
   price: number;
   cancelled_price: number;
   order_name: string;
@@ -20,6 +20,7 @@ export class OrderInfoDto {
   receipt_url: string;
   status: number;
   card_data: Buffer;
+  csv_name: string;
 
   constructor(
     id: string,
@@ -28,7 +29,7 @@ export class OrderInfoDto {
     parcels: Buffer,
     order_id: string,
     reciept_id: string,
-    s_id: Buffer,
+    s_id: number,
     price: number,
     cancelled_price: number,
     order_name: string,
@@ -43,6 +44,7 @@ export class OrderInfoDto {
     reciept_url: string,
     status: number,
     card_data: Buffer,
+    csv_name: string,
   ) {
     this.id = id;
     this.address = address;
@@ -65,5 +67,6 @@ export class OrderInfoDto {
     this.receipt_url = reciept_url;
     this.status = status;
     this.card_data = card_data;
+    this.csv_name = csv_name;
   }
 }
