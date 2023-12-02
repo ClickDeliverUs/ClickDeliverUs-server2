@@ -10,7 +10,7 @@ import { ChatService } from './chat.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-@WebSocketGateway({ namespace: '/chat' })
+@WebSocketGateway({ namespace: '/chat', cors: true }) // CORS Settings should be changed to increase security in actual service.
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
